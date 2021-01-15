@@ -13,10 +13,13 @@ export default function Header () {
       <nav css={navStyle}>
         <ul>
           <li>
-            <Link to='/'>Home</Link>
+            <Link css={itemStyle} to='/'>Home</Link>
           </li>
           <li>
-            <Link to='/another'>Another route</Link>
+            <Link css={itemStyle} to='/another'>Transactions</Link>
+          </li>
+          <li>
+            <Link css={itemStyle} to='/another'>Settings</Link>
           </li>
         </ul>
       </nav>
@@ -48,10 +51,16 @@ const logoStyle = css`
 `
 
 const navStyle = css`
-    width: 250px;
+    width: 350px;
     ul {
         display: flex;
         justify-content: space-between;
         list-style-type: none;
     }
+`
+const itemStyle = css`
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
 `

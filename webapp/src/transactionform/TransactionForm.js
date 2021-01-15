@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import gql from 'graphql-tag'
 import { css } from '@emotion/core'
 
 export default function TransactionForm () {
@@ -22,8 +23,34 @@ export default function TransactionForm () {
     }
   }
 
+  const submitTransaction = (e) => {
+    e.preventDefault()
+
+    window.__APOLLO_CLIENT__.mutate({
+      mutation: gql`
+            mutation addTransaction (
+                $description: String!
+                $debit: Boolean!
+                $credit: Boolean!
+                $amount: String!
+                ) {
+                addTransaction(
+                  description: $description
+                  debit: $debit
+                  credit: $credit
+                  amount: $amount
+                  ) {
+                  id,
+                  name,
+                  image
+                }
+            }
+        `
+    })
+  }
+
   return (
-    <form css={formStyles}>
+    <form css={formStyles} onSubmit={e => submitTransaction(e)}>
       <h3>Add a Transaction</h3>
       <label css={labelStyles}>
         Employee
@@ -91,7 +118,7 @@ const buttonGroup = css`
     font-size: 16px;
   }
 
-  input[type=button]:first-child {
+  input[type=button]:first-of-type {
     border-radius: 10px 0 0 10px;
     border-right: 1px solid black;
   }
