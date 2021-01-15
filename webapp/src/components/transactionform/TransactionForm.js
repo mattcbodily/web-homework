@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
+import { ADD_TRANSACTION } from '../../queries/queries'
 
 export default function TransactionForm () {
   const [amount, setAmount] = useState('')
@@ -9,6 +11,24 @@ export default function TransactionForm () {
   const [debit, setDebit] = useState(false)
   const [credit, setCredit] = useState(false)
   const [merchantID, setMerchantID] = useState('')
+  const [addTransaction] = useMutation(ADD_TRANSACTION)
+
+  const submitTransaction = (e) => {
+    e.preventDefault()
+
+    addTransaction({
+      variables: {
+        amount: parseFloat(amount),
+        description,
+        category,
+        date,
+        debit,
+        credit,
+        merchant_id: merchantID,
+        spendDate: date
+      }
+    })
+  }
 
   const selectPaymentType = (type) => {
     if (type === 'debit') {
@@ -55,7 +75,7 @@ export default function TransactionForm () {
             <input css={credit ? activePaymentTypeStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit')} type='button' value='Credit' />
           </div>
         </label>
-        <button css={ButtonStyles} type='submit'>Submit</button>
+        <button css={ButtonStyles} onClick={e => submitTransaction(e)} type='submit'>Submit</button>
       </div>
     </form>
   )

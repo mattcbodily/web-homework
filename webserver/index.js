@@ -27,7 +27,7 @@ module.exports = function main (options, cb) {
   let serverStarted = false
   let serverClosing = false
 
-  const MONGO_URI = 'mongodb://localhost:27017/divvy-test'
+  const MONGO_URI = 'mongodb://localhost:27017/graphql'
 
   mongoose.Promise = global.Promise
   mongoose.connect(MONGO_URI, {
