@@ -48,7 +48,7 @@ const logoStyle = css`
 `
 
 const navStyle = css`
-    width: 350px;
+    width: 250px;
     ul {
         display: flex;
         justify-content: space-between;
