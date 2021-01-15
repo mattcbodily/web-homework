@@ -24,6 +24,7 @@ export default function TransactionForm () {
 
   return (
     <form css={formStyles}>
+      <h3>Add a Transaction</h3>
       <label css={labelStyles}>
         Employee
         <input onChange={e => setUsername(e.target.value)} type='text' value={userName} />
@@ -49,15 +50,18 @@ export default function TransactionForm () {
 }
 
 const formStyles = css`
+  grid-area: form;
+
   input {
+    height: 40px;
     margin-top: 5px;
     outline: none;
   }
 
   input[type=text] {
-    height: 35px;
-    width: 300px;
+    width: 320px;
     box-sizing: border-box;
+    padding: 0 5px;
     border: 1px solid black;
     border-radius: 10px;
     font-size: 16px;
@@ -80,11 +84,11 @@ const passivePaymentTypeStyles = css`
 
 const buttonGroup = css`
   input[type=button] {
-    height: 35px;
-    width: 150px;
+    width: 160px;
     box-sizing: border-box;
     border: none;
     border: 1px solid black;
+    font-size: 16px;
   }
 
   input[type=button]:first-child {
@@ -98,8 +102,8 @@ const buttonGroup = css`
 `
 
 const ButtonStyles = css`
-  height: 35px;
-  width: 300px;
+  height: 40px;
+  width: 320px;
   box-sizing: border-box;
   border-radius: 10px;
   border: none;
