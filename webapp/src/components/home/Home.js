@@ -1,13 +1,17 @@
 import React from 'react'
 import { css } from '@emotion/core'
+import Expenses from '../expenses/Expenses'
 import TransactionForm from '../transactionform/TransactionForm'
-import ExpenseChart from '../expensechart/ExpenseChart'
+import Transactions from '../transactions/Transactions'
 
-export function Home () {
+const Home = () => {
   return (
     <section css={HomeLayout}>
-      <TransactionForm />
-      <ExpenseChart />
+      <div>
+        <Expenses />
+        <TransactionForm />
+      </div>
+      <Transactions />
     </section>
   )
 }
@@ -17,6 +21,8 @@ const HomeLayout = css`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 0 5vw;
 `
+
+export default Home

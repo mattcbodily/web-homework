@@ -37,6 +37,7 @@
     }
   },
   "dependencies": {
+    "@apollo/react-hooks": "^4.0.0",
     "@emotion/core": "10.0.10",
     "@emotion/styled": "10.0.12",
     "apollo-cache-inmemory": "1.6.2",

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { css } from '@emotion/core'
-import divvyLogo from '../assets/divvy-logo.png'
+import divvyLogo from '../../assets/divvy-logo.png'
 
 export default function Header () {
   return (
