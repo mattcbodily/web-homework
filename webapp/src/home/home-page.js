@@ -1,10 +1,15 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import { css } from '@emotion/core'
+import TransactionForm from '../transactionform/TransactionForm'
 
 export function Home () {
   return (
-    <Fragment>
-      {/* <Link to='/another'>Another route</Link> */}
-      <div>Ready, steady, go!</div>
-    </Fragment>
+    <section css={HomeLayout}>
+      <TransactionForm />
+    </section>
   )
 }
+
+const HomeLayout = css`
+  display: grid;
+`
