@@ -16,10 +16,7 @@ export default function Header () {
             <Link css={itemStyle} to='/'>Home</Link>
           </li>
           <li>
-            <Link css={itemStyle} to='/another'>Transactions</Link>
-          </li>
-          <li>
-            <Link css={itemStyle} to='/another'>Settings</Link>
+            <Link css={itemStyle} to='/settings'>Settings</Link>
           </li>
         </ul>
       </nav>

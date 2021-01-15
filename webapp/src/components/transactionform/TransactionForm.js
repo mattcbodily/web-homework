@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import gql from 'graphql-tag'
 import { css } from '@emotion/core'
 
 export default function TransactionForm () {
@@ -23,34 +22,8 @@ export default function TransactionForm () {
     }
   }
 
-  const submitTransaction = (e) => {
-    e.preventDefault()
-
-    window.__APOLLO_CLIENT__.mutate({
-      mutation: gql`
-            mutation addTransaction (
-                $description: String!
-                $debit: Boolean!
-                $credit: Boolean!
-                $amount: String!
-                ) {
-                addTransaction(
-                  description: $description
-                  debit: $debit
-                  credit: $credit
-                  amount: $amount
-                  ) {
-                  id,
-                  name,
-                  image
-                }
-            }
-        `
-    })
-  }
-
   return (
-    <form css={formStyles} onSubmit={e => submitTransaction(e)}>
+    <form css={formStyles}>
       <h3>Add a Transaction</h3>
       <label css={labelStyles}>
         Employee
@@ -77,7 +50,15 @@ export default function TransactionForm () {
 }
 
 const formStyles = css`
-  grid-area: form;
+  box-sizing: border-box;
+  height: 52vh;
+  width: 30vw;
+  padding: 10px;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 0 2px 1px gray;
+  display: flex;
+  flex-wrap: wrap;
 
   input {
     height: 40px;
@@ -86,7 +67,7 @@ const formStyles = css`
   }
 
   input[type=text] {
-    width: 320px;
+    width: 140px;
     box-sizing: border-box;
     padding: 0 5px;
     border: 1px solid black;
@@ -111,7 +92,7 @@ const passivePaymentTypeStyles = css`
 
 const buttonGroup = css`
   input[type=button] {
-    width: 160px;
+    width: 70px;
     box-sizing: border-box;
     border: none;
     border: 1px solid black;
@@ -130,7 +111,7 @@ const buttonGroup = css`
 
 const ButtonStyles = css`
   height: 40px;
-  width: 320px;
+  width: 140px;
   box-sizing: border-box;
   border-radius: 10px;
   border: none;

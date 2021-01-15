@@ -21,6 +21,6 @@ export default AppRouter
 
 const layoutStyle = css`
   min-height: 100vh;
-  background: #ededed;
+  background: #E4E4E4;
   font-family: Open-sans, arial;
 `

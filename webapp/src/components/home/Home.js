@@ -7,7 +7,7 @@ import Transactions from '../transactions/Transactions'
 const Home = () => {
   return (
     <section css={HomeLayout}>
-      <div>
+      <div css={FlexStyles}>
         <Expenses />
         <TransactionForm />
       </div>
@@ -19,10 +19,19 @@ const Home = () => {
 const HomeLayout = css`
   height: 100vh;
   box-sizing: border-box;
+  padding-top: 100px;
+  padding-bottom: 20px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 5vw;
+  padding: 0 3vw;
+`
+
+const FlexStyles = css`
+  height: 100vh;
+  box-sizing: border-box;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
 `
 
 export default Home
