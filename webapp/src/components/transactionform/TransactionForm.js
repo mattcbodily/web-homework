@@ -93,7 +93,7 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
 
   return (
     <form css={editView === 'true' ? [formStyles, editFormStyles] : formStyles}>
-      <h3>Add a Transaction</h3>
+      <h2>Add a Transaction</h2>
       <div>
         <label css={labelStyles}>
           Amount
@@ -180,7 +180,7 @@ const labelStyles = css`
 `
 
 const activePaymentTypeStyles = css`
-  background: #b5b5b5;
+  background: #159f6d;
   color: white;
 `
 

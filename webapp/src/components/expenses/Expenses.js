@@ -20,13 +20,17 @@ const Expenses = ({ transactions }) => {
 
   return (
     <section css={expensesStyles}>
-      <div>
-        <h1>Total Expenses</h1>
+      <div css={spendDataStyles}>
+        <h2>Total Expenses</h2>
         <p css={totalSpendStyles}>${totalSpend}</p>
-        <div css={debitBox} />
-        <p>Debit: ${debitSpend}</p>
-        <div css={creditBox} />
-        <p>Credit: ${creditSpend}</p>
+        <div css={boxFlex}>
+          <div css={debitBox} />
+          <p>Debit: ${debitSpend}</p>
+        </div>
+        <div css={boxFlex}>
+          <div css={creditBox} />
+          <p>Credit: ${creditSpend}</p>
+        </div>
       </div>
       <div css={chartContainer}>
         <Doughnut
@@ -55,28 +59,34 @@ Expenses.propTypes = {
 export default Expenses
 
 const expensesStyles = css`
-    box-sizing: border-box;
-    height: 30vh;
-    width: 30vw;
-    background: white;
-    margin: 20px 0;
-    padding: 0 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 2px 1px gray;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  box-sizing: border-box;
+  height: 30vh;
+  width: 30vw;
+  background: white;
+  margin: 20px 0;
+  padding: 0 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 1px gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    h1 {
-      font-size: 25px;
-      letter-spacing: 1px;
-    }
+  h2 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+`
+
+const spendDataStyles = css`
+  height: 100%;
 `
 
 const totalSpendStyles = css`
-  font-size: 30px;
+  font-size: 45px;
   font-weight: bold;
   letter-spacing: 1px;
+  margin: 15px 0;
 `
 
 const debitBox = css`
@@ -95,6 +105,11 @@ const creditBox = css`
   margin-right: 5px;
 `
 
+const boxFlex = css`
+  display: flex;
+  align-items: center;
+`
+
 const chartContainer = css`
-  width: 40%;
+  width: 45%;
 `
