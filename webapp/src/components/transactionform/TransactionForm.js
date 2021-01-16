@@ -93,7 +93,9 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
 
   return (
     <form css={editView === 'true' ? [formStyles, editFormStyles] : formStyles}>
-      <h2>Add a Transaction</h2>
+      {!editView
+        ? <h2>Add a Transaction</h2>
+        : null}
       <div>
         <label css={labelStyles}>
           Amount
@@ -118,12 +120,12 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
         <label css={labelStyles}>
           Payment Type
           <div css={buttonGroup}>
-            <input css={debit ? activePaymentTypeStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('debit')} type='button' value='Debit' />
-            <input css={credit ? activePaymentTypeStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit')} type='button' value='Credit' />
+            <input css={debit ? activeDebitStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('debit')} type='button' value='Debit' />
+            <input css={credit ? activeCreditStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit')} type='button' value='Credit' />
           </div>
         </label>
         {editView
-          ? <button css={ButtonStyles} onClick={e => editTransaction(e)} type='submit'>Edit</button>
+          ? <button css={ButtonStyles} onClick={e => editTransaction(e)} type='submit'>Submit</button>
           : <button css={ButtonStyles} onClick={e => submitTransaction(e)} type='submit'>Submit</button>}
       </div>
     </form>
@@ -168,9 +170,27 @@ const formStyles = css`
 `
 
 const editFormStyles = css`
-  height: 250px;
+  height: 275px;
   width: 100%;
   margin-top: 20px;
+
+  input[type=number], input[type=text], input[type=date] {
+    width: 18vw;
+    box-sizing: border-box;
+    padding: 0 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  input[type=button] {
+    width: 9vw;
+    box-sizing: border-box;
+    border: none;
+    border: 1px solid black;
+    margin-top: 5px;
+    font-size: 16px;
+  }
 `
 
 const labelStyles = css`
@@ -179,7 +199,12 @@ const labelStyles = css`
   flex-direction: column;
 `
 
-const activePaymentTypeStyles = css`
+const activeDebitStyles = css`
+  background: #247ba0;
+  color: white;
+`
+
+const activeCreditStyles = css`
   background: #159f6d;
   color: white;
 `
@@ -196,6 +221,7 @@ const buttonGroup = css`
     border: 1px solid black;
     margin-top: 5px;
     font-size: 16px;
+    cursor: pointer;
   }
 
   input[type=button]:first-of-type {

@@ -19,14 +19,16 @@ const Transaction = ({ transaction }) => {
   }
 
   return (
-    <section css={TransactionStyle}>
-      <p css={TransactionAmount}>${transaction.amount}</p>
-      <p css={TransactionAmount}>{transaction.debit ? 'Debit' : 'Credit'}</p>
-      <p>Description: {transaction.description}<br />Date: {transaction.spendDate}</p>
-      {editView
-        ? <button css={editButtonStyles} onClick={() => setEditView(false)}>Cancel</button>
-        : <button css={editButtonStyles} onClick={() => setEditView(true)}>Edit</button>}
-      <button css={deleteButtonStyles} onClick={removeTransaction}>Delete</button>
+    <section>
+      <section css={transactionStyle}>
+        <p css={transactionAmount}>${transaction.amount}</p>
+        <p css={transactionAmount}>{transaction.debit ? 'Debit' : 'Credit'}</p>
+        <p>Description: {transaction.description}<br />Date: {transaction.spendDate}</p>
+        {editView
+          ? <button css={editButtonStyles} onClick={() => setEditView(false)}>Cancel</button>
+          : <button css={editButtonStyles} onClick={() => setEditView(true)}>Edit</button>}
+        <button css={deleteButtonStyles} onClick={removeTransaction}>Delete</button>
+      </section>
       {editView
         ? (
           <TransactionForm editView='true' setEditView={setEditView} transaction={transaction} />
@@ -40,7 +42,7 @@ Transaction.propTypes = {
   transaction: PropTypes.object
 }
 
-const TransactionStyle = css`
+const transactionStyle = css`
   box-sizing: border-box;
   height: 65px;
   width: 100%;
@@ -70,7 +72,7 @@ const TransactionStyle = css`
   }
 `
 
-const TransactionAmount = css`
+const transactionAmount = css`
   font-size: 24px;
   margin: 0;
   line-height: 65px;

@@ -51,12 +51,15 @@ const Histogram = ({ transactions }) => {
   return (
     <section css={histogramContainer}>
       <h2>Spending Trends</h2>
-      <p>View by: <button css={buttonStyles} onClick={() => setChartType('day')}>Date</button> <button css={buttonStyles} onClick={() => setChartType('category')}>Category</button></p>
+      <p>View by:
+        <button css={chartType === 'day' ? [buttonStyles, activeStyles] : buttonStyles} onClick={() => setChartType('day')}>Date</button>
+        <button css={chartType === 'category' ? [buttonStyles, activeStyles] : buttonStyles} onClick={() => setChartType('category')}>Category</button>
+      </p>
       <Bar
         data={{
           labels: chartType === 'day' ? days : categories,
           datasets: [{
-            backgroundColor: '#159f6d',
+            backgroundColor: '#C1DFF0',
             data: chartType === 'day' ? dailyAmounts : categoryAmounts
           }]
         }}
@@ -89,10 +92,25 @@ const histogramContainer = css`
   background: white;
   border-radius: 5px;
   box-shadow: 0 0 2px 1px gray;
+
+  p {
+    font-size: 18px;
+    margin: 8px 0;
+  }
 `
 
 const buttonStyles = css`
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  outline: none;
+`
 
+const activeStyles = `
+  text-decoration: underline;
+  font-weight: bold;
 `
 
 export default Histogram
