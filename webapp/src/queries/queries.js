@@ -10,7 +10,7 @@ export const GET_ALL_TRANSACTIONS = gql`
       credit,
       merchantID: merchant_id,
       spendDate,
-      transaction_id
+      transactionId: transaction_id
     }
   }
 `
@@ -41,9 +41,9 @@ export const ADD_TRANSACTION = gql`
       category,
       debit,
       credit,
-      merchant_id,
+      merchantID: merchant_id,
       spendDate,
-      transaction_id
+      transactionId: transaction_id
     } 
   }
 `
@@ -55,7 +55,7 @@ export const DELETE_TRANSACTION = gql`
     deleteTransaction(
       transaction_id: $transaction_id
     ) {
-      transaction_id
+      transactionId: transaction_id
     }
   }
 `

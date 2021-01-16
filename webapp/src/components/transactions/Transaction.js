@@ -12,7 +12,7 @@ const Transaction = ({ transaction }) => {
   const removeTransaction = () => {
     deleteTransaction({
       variables: {
-        transaction_id: transaction.transaction_id
+        transaction_id: transaction.transactionId
       },
       refetchQueries: [{ query: GET_ALL_TRANSACTIONS }]
     })
