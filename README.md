@@ -1,6 +1,6 @@
 # Divvy Homework Assignment
 
-Welcome to my submission to the Divvy Homework Assignment. This application allows users to get, add, update, and delete transactions, upload transactions through a csv file, and view total expenses and spending trends through a histogram and doughnut chart. The objectives that I completed are:
+Welcome to my submission to the Divvy Homework Assignment! This application allows users to get, add, update, and delete transactions, upload transactions through a csv file, and view total expenses and spending trends through a histogram and doughnut chart. The objectives that I completed are:
 
 * Write a basic user interface that allows users to enter, edit, and remove transaction
 * Provide a pie chart or histogram of the spend per category or spend per day, respectively
