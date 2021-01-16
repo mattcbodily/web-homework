@@ -16,6 +16,9 @@ export default function Header () {
             <Link css={itemStyle} to='/'>Home</Link>
           </li>
           <li>
+            <Link css={itemStyle} to='/upload'>Upload</Link>
+          </li>
+          <li>
             <Link css={itemStyle} to='/settings'>Settings</Link>
           </li>
         </ul>
@@ -50,7 +53,8 @@ const logoStyle = css`
 `
 
 const navStyle = css`
-    width: 250px;
+    width: 275px;
+    
     ul {
         display: flex;
         justify-content: space-between;
