@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
+import TransactionForm from '../transactionform/TransactionForm'
 import { DELETE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 
 const Transaction = ({ transaction }) => {
+  const [editView, setEditView] = useState(false)
   const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
 
   const removeTransaction = () => {
@@ -21,8 +23,15 @@ const Transaction = ({ transaction }) => {
       <p css={TransactionAmount}>${transaction.amount}</p>
       <p css={TransactionAmount}>{transaction.debit ? 'Debit' : 'Credit'}</p>
       <p>Description: {transaction.description}<br />Date: {transaction.spendDate}</p>
-      <button css={editButtonStyles}>Edit</button>
+      {editView
+        ? <button css={editButtonStyles} onClick={() => setEditView(false)}>Cancel</button>
+        : <button css={editButtonStyles} onClick={() => setEditView(true)}>Edit</button>}
       <button css={deleteButtonStyles} onClick={removeTransaction}>Delete</button>
+      {editView
+        ? (
+          <TransactionForm editView='true' />
+        )
+        : null}
     </section>
   )
 }

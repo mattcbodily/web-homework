@@ -29,7 +29,9 @@ const Home = () => {
 
 const HomeLayout = css`
   height: 100vh;
+  max-width: 1800px;
   box-sizing: border-box;
+  margin: 0 auto;
   padding-top: 100px;
   padding-bottom: 20px;
   display: flex;

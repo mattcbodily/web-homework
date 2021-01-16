@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import { ADD_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 import { v4 as uuidv4 } from 'uuid'
 
-export default function TransactionForm () {
+const TransactionForm = ({ editView }) => {
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
@@ -55,7 +56,7 @@ export default function TransactionForm () {
   }
 
   return (
-    <form css={formStyles}>
+    <form css={editView === 'true' ? [formStyles, editFormStyles] : formStyles}>
       <h3>Add a Transaction</h3>
       <div>
         <label css={labelStyles}>
@@ -91,6 +92,10 @@ export default function TransactionForm () {
   )
 }
 
+TransactionForm.propTypes = {
+  editView: PropTypes.bool
+}
+
 const formStyles = css`
   box-sizing: border-box;
   height: 52vh;
@@ -120,6 +125,12 @@ const formStyles = css`
     border-radius: 5px;
     font-size: 16px;
   }
+`
+
+const editFormStyles = css`
+  height: 250px;
+  width: 100%;
+  margin-top: 20px;
 `
 
 const labelStyles = css`
@@ -174,3 +185,5 @@ const ButtonStyles = css`
     color: white;
   }
 `
+
+export default TransactionForm
