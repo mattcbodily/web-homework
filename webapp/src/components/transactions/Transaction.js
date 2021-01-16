@@ -51,7 +51,23 @@ const TransactionStyle = css`
   box-shadow: 0 0 2px 1px gray;
   display: grid;
   grid-template-rows: 10px 45px 10px;
-  grid-template-columns: 15% 20% 35% 12% 10%;
+  grid-template-columns: 15% 20% 35% 13% 10%;
+
+  button {
+    box-sizing: border-box;
+    height: 40px;
+    width: 100px;
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 200ms;
+
+    &:hover {
+      color: white;
+    }
+  }
 `
 
 const TransactionAmount = css`
@@ -61,17 +77,21 @@ const TransactionAmount = css`
 `
 
 const editButtonStyles = css`
-  height: 40px;
-  width: 100px;
   grid-row: 2;
   grid-column: 4;
+
+  &:hover {
+    background: #ffb627;
+  }
 `
 
 const deleteButtonStyles = css`
-  height: 40px;
-  width: 100px;
   grid-row: 2;
   grid-column: 5;
+
+  &:hover {
+    background: #fc440f;
+  }
 `
 
 export default Transaction

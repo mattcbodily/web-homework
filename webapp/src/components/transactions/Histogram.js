@@ -49,9 +49,9 @@ const Histogram = ({ transactions }) => {
   }, [chartType, transactions.length])
 
   return (
-    <section css={HistogramContainer}>
+    <section css={histogramContainer}>
       <h2>Spending Trends</h2>
-      <p>View by: <button onClick={() => setChartType('day')}>Date</button> <button onClick={() => setChartType('category')}>Category</button></p>
+      <p>View by: <button css={buttonStyles} onClick={() => setChartType('day')}>Date</button> <button css={buttonStyles} onClick={() => setChartType('category')}>Category</button></p>
       <Bar
         data={{
           labels: chartType === 'day' ? days : categories,
@@ -81,7 +81,7 @@ Histogram.propTypes = {
   transactions: PropTypes.array
 }
 
-const HistogramContainer = css`
+const histogramContainer = css`
   box-sizing: border-box;
   height: 41vh;
   width: 100%;
@@ -89,6 +89,10 @@ const HistogramContainer = css`
   background: white;
   border-radius: 5px;
   box-shadow: 0 0 2px 1px gray;
+`
+
+const buttonStyles = css`
+
 `
 
 export default Histogram
