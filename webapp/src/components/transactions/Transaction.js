@@ -5,7 +5,8 @@ import { css } from '@emotion/core'
 const Transaction = ({ transaction }) => {
   return (
     <section css={TransactionStyle}>
-      <p css={TransactionAmount}>${transaction.amount}, {transaction.debit ? 'Debit' : 'Credit'}</p>
+      <p css={TransactionAmount}>${transaction.amount}</p>
+      <p css={TransactionAmount}>{transaction.debit ? 'Debit' : 'Credit'}</p>
       <p>Category: {transaction.category}<br />Date: {transaction.spendDate}</p>
     </section>
   )
@@ -26,7 +27,7 @@ const TransactionStyle = css`
   box-shadow: 0 0 2px 1px gray;
   display: grid;
   grid-template-rows: 65px;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 15% 15% 25% 25%;
 `
 
 const TransactionAmount = css`

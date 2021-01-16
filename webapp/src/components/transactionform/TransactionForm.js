@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import { ADD_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function TransactionForm () {
   const [amount, setAmount] = useState('')
@@ -25,7 +26,8 @@ export default function TransactionForm () {
         debit,
         credit,
         merchant_id: merchantID,
-        spendDate: date
+        spendDate: date,
+        transaction_id: uuidv4()
       },
       refetchQueries: [{ query: GET_ALL_TRANSACTIONS }]
     })
