@@ -50,6 +50,7 @@ const Histogram = ({ transactions }) => {
 
   return (
     <section css={HistogramContainer}>
+      <h2>Spending Trends</h2>
       <p>View by: <button onClick={() => setChartType('day')}>Date</button> <button onClick={() => setChartType('category')}>Category</button></p>
       <Bar
         data={{
@@ -59,7 +60,7 @@ const Histogram = ({ transactions }) => {
             data: chartType === 'day' ? dailyAmounts : categoryAmounts
           }]
         }}
-        height={80}
+        height={78}
         options={{
           legend: {
             display: false
@@ -82,7 +83,7 @@ Histogram.propTypes = {
 
 const HistogramContainer = css`
   box-sizing: border-box;
-  height: calc(41vh - 25px);
+  height: 41vh;
   width: 100%;
   padding: 10px;
   background: white;
