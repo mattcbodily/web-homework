@@ -31,12 +31,18 @@ const Expenses = ({ transactions }) => {
       <div css={chartContainer}>
         <Doughnut
           data={{
+            labels: ['Debit', 'Credit'],
             datasets: [{
               backgroundColor: ['#247ba0', '#159f6d'],
               data: [debitSpend, creditSpend]
             }]
           }}
-          height={275} />
+          height={300}
+          options={{
+            legend: {
+              display: false
+            }
+          }} />
       </div>
     </section>
   )
