@@ -1,15 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
+import { DELETE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 
 const Transaction = ({ transaction }) => {
+  const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
+
+  const removeTransaction = () => {
+    deleteTransaction({
+      variables: {
+        transaction_id: transaction.transaction_id
+      },
+      refetchQueries: [{ query: GET_ALL_TRANSACTIONS }]
+    })
+  }
+
   return (
     <section css={TransactionStyle}>
       <p css={TransactionAmount}>${transaction.amount}</p>
       <p css={TransactionAmount}>{transaction.debit ? 'Debit' : 'Credit'}</p>
       <p>Description: {transaction.description}<br />Date: {transaction.spendDate}</p>
       <button css={editButtonStyles}>Edit</button>
-      <button css={deleteButtonStyles}>Delete</button>
+      <button css={deleteButtonStyles} onClick={removeTransaction}>Delete</button>
     </section>
   )
 }
