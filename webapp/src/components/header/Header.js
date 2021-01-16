@@ -34,7 +34,9 @@ const headerStyle = css`
     justify-content: space-between;
     align-items: center;
     padding: 0 75px;
-    background: white;
+    background: black;
+    color: white;
+    box-shadow: 0 2px 2px gray;
 `
 
 const logoStyle = css`
@@ -56,7 +58,7 @@ const navStyle = css`
     }
 `
 const itemStyle = css`
-    color: black;
+    color: white;
     font-size: 20px;
     font-weight: 500;
     text-decoration: none;
