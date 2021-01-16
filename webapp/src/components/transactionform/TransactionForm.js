@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
-import { ADD_TRANSACTION } from '../../queries/queries'
+import { ADD_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 
 export default function TransactionForm () {
   const [amount, setAmount] = useState('')
@@ -26,8 +26,16 @@ export default function TransactionForm () {
         credit,
         merchant_id: merchantID,
         spendDate: date
-      }
+      },
+      refetchQueries: [{ query: GET_ALL_TRANSACTIONS }]
     })
+    setAmount('')
+    setDescription('')
+    setCategory('')
+    setDate('')
+    setMerchantID('')
+    setDebit(false)
+    setCredit(false)
   }
 
   const selectPaymentType = (type) => {
