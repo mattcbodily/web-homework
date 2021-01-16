@@ -5,9 +5,9 @@ export const selectPaymentType = (type, debit, credit, cb1, cb2) => {
       cb2(false)
     }
   } else if (type === 'credit') {
-    cb1(true)
+    cb2(true)
     if (debit) {
-      cb2(false)
+      cb1(false)
     }
   }
 }
