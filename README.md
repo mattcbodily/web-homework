@@ -1,10 +1,6 @@
 # Divvy Homework Assignment
 
-<<<<<<< HEAD
 Welcome to my submission to the Divvy Homework Assignment. This application allows users to get, add, update, and delete transactions, upload transactions through a csv file, and view total expenses and spending trends through a histogram and doughnut chart. The objectives that I completed are:
-=======
-Welcome to my submission to the Divvy Homework Assignment! This application allows users to get, add, update, and delete transactions, upload transactions through a csv file, and view total expenses and spending trends through a histogram and doughnut chart. The objectives that I completed are:
->>>>>>> a094732ec34b265221104f8cbcb833d95ced7188
 
 * Write a basic user interface that allows users to enter, edit, and remove transaction
 * Provide a pie chart or histogram of the spend per category or spend per day, respectively
@@ -14,7 +10,7 @@ Welcome to my submission to the Divvy Homework Assignment! This application allo
 
 Take a peek at what the project looks like:
 
-![home-view](./webapp/src/assets/home-view.png)
+![home-view](./home-view.png)
 
 ## Testing
 
@@ -31,12 +27,8 @@ Before attempting the challenge, I went through planning what I needed to resear
 
 Provided below is the basic wireframe I started with (some adjustments can be seen in the final product, especially regarding the color scheme):
 
-![wireframe](./webapp/src/assets/wireframe.png)
+![wireframe](.wireframe.png)
 
 ## Concluding Thoughts
 
-<<<<<<< HEAD
 This project was a blast. I felt like I got to showcase what I know while also showcasing how effectively I learn new things. Thank you for your time, and I hope you enjoy the code!
-=======
-This project was a blast. I felt like I got to showcase what I know while also showcasing how effectively I learn new things. Thank you for your time, and I hope you enjoy the code!
->>>>>>> a094732ec34b265221104f8cbcb833d95ced7188
