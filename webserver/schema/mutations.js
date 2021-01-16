@@ -44,7 +44,7 @@ const mutation = new GraphQLObjectType({
         amount: { type: GraphQLFloat },
         category: { type: GraphQLString },
         spendDate: { type: GraphQLString },
-        transaction: { type: GraphQLString }
+        transaction_id: { type: GraphQLString }
       },
       resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount, category, spendDate, transaction_id }) {
         return TransactionModel.findOneAndUpdate(

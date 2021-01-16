@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
-import { ADD_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
+import { ADD_TRANSACTION, UPDATE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 import { v4 as uuidv4 } from 'uuid'
 
-const TransactionForm = ({ editView, transaction }) => {
+const TransactionForm = ({ editView, setEditView, transaction }) => {
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
@@ -14,18 +14,19 @@ const TransactionForm = ({ editView, transaction }) => {
   const [credit, setCredit] = useState(false)
   const [merchantID, setMerchantID] = useState('')
   const [addTransaction] = useMutation(ADD_TRANSACTION)
+  const [updateTransaction] = useMutation(UPDATE_TRANSACTION)
 
   useEffect(() => {
-    if (transaction) {
-      setAmount(transaction.amount)
+    if (transaction && editView) {
+      setAmount(transaction.amount.toString())
       setDescription(transaction.description)
       setCategory(transaction.category)
-      setDate(transaction.date)
+      setDate(transaction.spendDate)
       setDebit(transaction.debit)
       setCredit(transaction.credit)
       setMerchantID(transaction.merchantID)
     }
-  }, [transaction])
+  }, [transaction, editView])
 
   const clearForm = () => {
     setAmount('')
@@ -45,7 +46,6 @@ const TransactionForm = ({ editView, transaction }) => {
         amount: parseFloat(amount),
         description,
         category,
-        date,
         debit,
         credit,
         merchant_id: merchantID,
@@ -55,6 +55,26 @@ const TransactionForm = ({ editView, transaction }) => {
       refetchQueries: [{ query: GET_ALL_TRANSACTIONS }]
     })
     clearForm()
+  }
+
+  const editTransaction = (e) => {
+    e.preventDefault()
+
+    updateTransaction({
+      variables: {
+        amount: parseFloat(amount),
+        description,
+        category,
+        debit,
+        credit,
+        merchant_id: merchantID,
+        spendDate: date,
+        transaction_id: transaction.transactionId
+      },
+      refetchQueries: [{ query: GET_ALL_TRANSACTIONS }]
+    })
+    clearForm()
+    setEditView(false)
   }
 
   const selectPaymentType = (type) => {
@@ -102,7 +122,9 @@ const TransactionForm = ({ editView, transaction }) => {
             <input css={credit ? activePaymentTypeStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit')} type='button' value='Credit' />
           </div>
         </label>
-        <button css={ButtonStyles} onClick={e => submitTransaction(e)} type='submit'>Submit</button>
+        {editView
+          ? <button css={ButtonStyles} onClick={e => editTransaction(e)} type='submit'>Edit</button>
+          : <button css={ButtonStyles} onClick={e => submitTransaction(e)} type='submit'>Submit</button>}
       </div>
     </form>
   )
@@ -110,6 +132,7 @@ const TransactionForm = ({ editView, transaction }) => {
 
 TransactionForm.propTypes = {
   editView: PropTypes.string,
+  setEditView: PropTypes.func,
   transaction: PropTypes.object
 }
 

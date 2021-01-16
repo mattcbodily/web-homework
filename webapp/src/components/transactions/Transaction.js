@@ -29,7 +29,7 @@ const Transaction = ({ transaction }) => {
       <button css={deleteButtonStyles} onClick={removeTransaction}>Delete</button>
       {editView
         ? (
-          <TransactionForm editView='true' transaction={transaction} />
+          <TransactionForm editView='true' setEditView={setEditView} transaction={transaction} />
         )
         : null}
     </section>
