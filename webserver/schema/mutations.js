@@ -32,6 +32,27 @@ const mutation = new GraphQLObjectType({
       resolve (parentValue, { transaction_id }) {
         return TransactionModel.deleteOne({ transaction_id })
       }
+    },
+    updateTransaction: {
+      type: TransactionType,
+      args: {
+        user_id: { type: GraphQLString },
+        description: { type: GraphQLString },
+        merchant_id: { type: GraphQLString },
+        debit: { type: GraphQLBoolean },
+        credit: { type: GraphQLBoolean },
+        amount: { type: GraphQLFloat },
+        category: { type: GraphQLString },
+        spendDate: { type: GraphQLString },
+        transaction: { type: GraphQLString }
+      },
+      resolve (parentValue, { user_id, description, merchant_id, debit, credit, amount, category, spendDate, transaction_id }) {
+        return TransactionModel.findOneAndUpdate(
+          { transaction_id },
+          { user_id, description, merchant_id, debit, credit, amount, category, spendDate },
+          { new: true }
+        )
+      }
     }
   }
 })
