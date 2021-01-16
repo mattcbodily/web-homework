@@ -27,7 +27,7 @@ Before attempting the challenge, I went through planning what I needed to resear
 
 Provided below is the basic wireframe I started with (some adjustments can be seen in the final product, especially regarding the color scheme):
 
-![wireframe](.wireframe.png)
+![wireframe](./wireframe.png)
 
 ## Concluding Thoughts
 
