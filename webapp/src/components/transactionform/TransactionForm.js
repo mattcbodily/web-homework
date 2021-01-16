@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import { ADD_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 import { v4 as uuidv4 } from 'uuid'
 
-const TransactionForm = ({ editView }) => {
+const TransactionForm = ({ editView, transaction }) => {
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
@@ -14,6 +14,28 @@ const TransactionForm = ({ editView }) => {
   const [credit, setCredit] = useState(false)
   const [merchantID, setMerchantID] = useState('')
   const [addTransaction] = useMutation(ADD_TRANSACTION)
+
+  useEffect(() => {
+    if (transaction) {
+      setAmount(transaction.amount)
+      setDescription(transaction.description)
+      setCategory(transaction.category)
+      setDate(transaction.date)
+      setDebit(transaction.debit)
+      setCredit(transaction.credit)
+      setMerchantID(transaction.merchantID)
+    }
+  }, [transaction])
+
+  const clearForm = () => {
+    setAmount('')
+    setDescription('')
+    setCategory('')
+    setDate('')
+    setMerchantID('')
+    setDebit(false)
+    setCredit(false)
+  }
 
   const submitTransaction = (e) => {
     e.preventDefault()
@@ -32,13 +54,7 @@ const TransactionForm = ({ editView }) => {
       },
       refetchQueries: [{ query: GET_ALL_TRANSACTIONS }]
     })
-    setAmount('')
-    setDescription('')
-    setCategory('')
-    setDate('')
-    setMerchantID('')
-    setDebit(false)
-    setCredit(false)
+    clearForm()
   }
 
   const selectPaymentType = (type) => {
@@ -93,7 +109,8 @@ const TransactionForm = ({ editView }) => {
 }
 
 TransactionForm.propTypes = {
-  editView: PropTypes.bool
+  editView: PropTypes.string,
+  transaction: PropTypes.object
 }
 
 const formStyles = css`
