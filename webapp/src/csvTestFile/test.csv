@@ -1,0 +1,5 @@
+amount,description,category,debit,credit,merchant_id
+50,Ads,Marketing,TRUE,FALSE,3
+150,Dev,Engineering,FALSE,TRUE,3
+250,Computers,Engineering,TRUE,FALSE,3
+25,Snacks,Perks,TRUE,FALSE,3
