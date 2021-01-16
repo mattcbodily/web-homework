@@ -108,7 +108,7 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
           Payment Type
           <div css={buttonGroup}>
             <input css={debit ? activeDebitStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('debit', debit, credit, setDebit, setCredit)} type='button' value='Debit' />
-            <input css={credit ? activeCreditStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit', debit, credit, setDebit, setCredit)} type='button' value='Credit' />
+            <input css={credit ? activeCreditStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit', debit, credit, setDebit, setCredit, false)} type='button' value='Credit' />
           </div>
         </label>
         {editView

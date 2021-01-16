@@ -51,7 +51,7 @@ const Histogram = ({ transactions }) => {
       setCategories([])
       setCategoryAmounts([])
     }
-  }, [chartType, transactions.length])
+  }, [chartType, transactions])
 
   return (
     <section css={histogramContainer}>

@@ -16,7 +16,7 @@ const Expenses = ({ transactions }) => {
     setTotalSpend(allSum)
     setDebitSpend(debitSum)
     setCreditSpend(creditSum)
-  }, [transactions.length])
+  }, [transactions])
 
   return (
     <section css={expensesStyles}>
