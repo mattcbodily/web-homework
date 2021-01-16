@@ -45,6 +45,11 @@ const Histogram = ({ transactions }) => {
 
       setCategories(categoryList)
       setCategoryAmounts(categorySpend)
+    } else if (!transactions.length && dailyAmounts) {
+      setDays([])
+      setDailyAmounts([])
+      setCategories([])
+      setCategoryAmounts([])
     }
   }, [chartType, transactions.length])
 

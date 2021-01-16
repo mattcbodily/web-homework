@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import CSVReader from 'react-csv-reader'
+import { css } from '@emotion/core'
 import { v4 as uuidv4 } from 'uuid'
 import { ADD_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 
@@ -40,17 +42,66 @@ const Upload = () => {
   }
 
   return (
-    <section>
+    <section css={uploadStyles}>
       <h2>Upload CSV</h2>
-      <p>Upload and add transactions through a CSV file below</p>
+      <p>Upload your transactions through a CSV file</p>
       <CSVReader
         onFileLoaded={uploadData}
         parserOptions={papaparseOptions} />
-      {uploadedTransactions && uploadedTransactions.map(transaction => (
-        <div key={uuidv4()}>${transaction.amount} {transaction.description} {transaction.category}</div>
-      ))}
+      {uploadedTransactions.length > 0
+        ? (
+          <section>
+            <h3>Transactions Uploaded Successfully!</h3>
+            <p>View them below, navigate back <Link to='/'>home</Link> or upload more</p>
+            <div css={previewFlex}>
+              {uploadedTransactions.map(transaction => (
+                <div css={previewStyles} key={uuidv4()}>
+                  <p>Amount: ${transaction.amount}</p>
+                  <p>Payment Method: {transaction.debit ? 'Debit' : 'Credit'}</p>
+                  <p>Description: {transaction.description}</p>
+                  <p>Category: {transaction.category}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+        : null
+      }
     </section>
   )
 }
+
+const uploadStyles = css`
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 120px;
+
+  h2 {
+    font-size: 30px;
+    margin: 10px 0;
+  }
+
+  p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+`
+
+const previewFlex = css`
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+`
+
+const previewStyles = css`
+  box-sizing: border-box;
+  height: 170px;
+  width: 250px;
+  margin: 0 15px 15px 0;
+  padding: 10px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 1px gray;
+`
 
 export default Upload
