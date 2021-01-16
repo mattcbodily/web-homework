@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
-import { ADD_TRANSACTION, UPDATE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 import { v4 as uuidv4 } from 'uuid'
+import { ADD_TRANSACTION, UPDATE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
+import { selectPaymentType } from './TransactionFormLogic'
 
 const TransactionForm = ({ editView, setEditView, transaction }) => {
   const [amount, setAmount] = useState('')
@@ -77,20 +78,6 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
     setEditView(false)
   }
 
-  const selectPaymentType = (type) => {
-    if (type === 'debit') {
-      setDebit(true)
-      if (credit) {
-        setCredit(false)
-      }
-    } else if (type === 'credit') {
-      setCredit(true)
-      if (debit) {
-        setDebit(false)
-      }
-    }
-  }
-
   return (
     <form css={editView === 'true' ? [formStyles, editFormStyles] : formStyles}>
       {!editView
@@ -120,8 +107,8 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
         <label css={labelStyles}>
           Payment Type
           <div css={buttonGroup}>
-            <input css={debit ? activeDebitStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('debit')} type='button' value='Debit' />
-            <input css={credit ? activeCreditStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit')} type='button' value='Credit' />
+            <input css={debit ? activeDebitStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('debit', debit, credit, setDebit, setCredit)} type='button' value='Debit' />
+            <input css={credit ? activeCreditStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit', debit, credit, setDebit, setCredit)} type='button' value='Credit' />
           </div>
         </label>
         {editView
