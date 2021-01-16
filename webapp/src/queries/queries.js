@@ -1,5 +1,19 @@
 import gql from 'graphql-tag'
 
+export const GET_ALL_TRANSACTIONS = gql`
+  {
+    transactions {
+      amount,
+      description,
+      category,
+      debit,
+      credit,
+      merchantID: merchant_id,
+      spendDate
+    }
+  }
+`
+
 export const ADD_TRANSACTION = gql`
     mutation(
       $amount: Float!

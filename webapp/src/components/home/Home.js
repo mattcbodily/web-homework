@@ -1,17 +1,28 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useQuery } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import Expenses from '../expenses/Expenses'
 import TransactionForm from '../transactionform/TransactionForm'
-import Transactions from '../transactions/Transactions'
+import TransactionList from '../transactions/TransactionList'
+import { GET_ALL_TRANSACTIONS } from '../../queries/queries'
 
 const Home = () => {
+  const [transactions, setTransactions] = useState([])
+  const { data } = useQuery(GET_ALL_TRANSACTIONS)
+
+  useEffect(() => {
+    if (data && data.transactions) {
+      setTransactions(data.transactions)
+    }
+  }, [data])
+
   return (
     <section css={HomeLayout}>
       <div css={FlexStyles}>
-        <Expenses />
+        <Expenses transactions={transactions} />
         <TransactionForm />
       </div>
-      <Transactions />
+      <TransactionList transactions={transactions} />
     </section>
   )
 }

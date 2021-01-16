@@ -88,7 +88,7 @@ const formStyles = css`
   padding: 10px;
   border-radius: 5px;
   background: white;
-  // box-shadow: 0 0 2px 1px gray;
+  box-shadow: 0 0 2px 1px gray;
 
   div {
     display: flex;
