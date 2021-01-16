@@ -4,14 +4,19 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack -d",
-    "start": "webpack-dev-server -d --hot"
+    "start": "webpack-dev-server -d --hot",
+    "test": "jest --watchAll"
   },
   "jest": {
     "setupFiles": [
-      "../../testSetup.js"
+      "./test.setup.js"
+    ],
+    "rootDir": ".",
+    "roots": [
+      "<rootDir>/src"
     ],
     "setupFilesAfterEnv": [
-      "../../jest.config.framework.js"
+      "./jest.config.framework.js"
     ],
     "globals": {
       "__DivvyEnvironment": true
@@ -23,21 +28,19 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/assetMock.js"
     },
-    "snapshotSerializers": [
-      "jest-emotion/serializer"
-    ],
     "moduleFileExtensions": [
       "js",
       "jsx",
       "json"
     ],
     "transform": {
-      "\\.(gql|graphql)$": "jest-transform-graphql",
-      ".jsx?$": "babel-jest"
+      ".jsx?$": "babel-jest",
+      "^.+//.js$": "babel-jest"
     }
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
+    "@apollo/react-testing": "^4.0.0",
     "@emotion/core": "10.0.10",
     "@emotion/styled": "10.0.12",
     "apollo-cache-inmemory": "1.6.2",
@@ -92,6 +95,7 @@
     "@babel/register": "7.4.4",
     "@babel/runtime": "7.4.5",
     "@emotion/babel-preset-css-prop": "10.0.9",
+    "@testing-library/react": "^11.2.3",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.8.0",
     "babel-loader": "8.0.6",
@@ -137,7 +141,6 @@
     "react-addons-test-utils": "15.6.2",
     "react-stub-context": "0.8.1",
     "react-test-renderer": "16.8.6",
-    "react-testing-library": "8.0.1",
     "regenerator-runtime": "0.13.2",
     "webpack": "4.33.0",
     "webpack-cli": "3.3.4",

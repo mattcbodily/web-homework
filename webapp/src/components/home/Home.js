@@ -17,7 +17,7 @@ const Home = () => {
   }, [data])
 
   return (
-    <section css={HomeLayout}>
+    <section css={HomeLayout} data-testid='home'>
       <div css={FlexStyles}>
         <Expenses transactions={transactions} />
         <TransactionForm />

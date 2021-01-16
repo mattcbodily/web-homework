@@ -27,12 +27,12 @@ const Settings = () => {
       <p>This is the future home of incredible features such as this:</p>
       <div>
         <h3>Turn your numbers into roman numerals</h3>
-        <input onChange={e => setNumInput(e.target.value)} type='number' value={numInput} />
-        <button onClick={romanize}>Romanize</button>
+        <input id='num-input' onChange={e => setNumInput(e.target.value)} type='number' value={numInput} />
+        <button id='romanize-btn' onClick={romanize}>Romanize</button>
         {romanNumeral
           ? (
             <Fragment>
-              <p>Roman Numeral: {romanNumeral}</p>
+              <p id='roman-numeral'>Roman Numeral: {romanNumeral}</p>
               <p>DISCLAIMER: This developers knowledge of roman numerals is limited to <br />Super Bowl numbers and Star Wars episodes. Just kidding.</p>
             </Fragment>
           )
