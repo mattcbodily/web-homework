@@ -1,9 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Proptypes from 'prop-types'
+import { Link, withRouter } from 'react-router-dom'
 import { css } from '@emotion/core'
 import divvyLogo from '../../assets/divvy-logo.png'
 
-export default function Header () {
+const Header = ({ location }) => {
   return (
     <header css={headerStyle}>
       <section css={logoStyle}>
@@ -13,13 +14,13 @@ export default function Header () {
       <nav css={navStyle}>
         <ul>
           <li>
-            <Link css={itemStyle} to='/'>Home</Link>
+            <Link css={location.pathname === '/' ? [itemStyle, activeLinkStyle] : itemStyle} to='/'>Home</Link>
           </li>
           <li>
-            <Link css={itemStyle} to='/upload'>Upload</Link>
+            <Link css={location.pathname === '/upload' ? [itemStyle, activeLinkStyle] : itemStyle} to='/upload'>Upload</Link>
           </li>
           <li>
-            <Link css={itemStyle} to='/settings'>Settings</Link>
+            <Link css={location.pathname === '/settings' ? [itemStyle, activeLinkStyle] : itemStyle} to='/settings'>Settings</Link>
           </li>
         </ul>
       </nav>
@@ -27,43 +28,53 @@ export default function Header () {
   )
 }
 
+Header.propTypes = {
+  location: Proptypes.object
+}
+
 const headerStyle = css`
-    height: 100px;
-    width: 100%;
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 75px;
-    background: black;
-    color: white;
-    box-shadow: 0 2px 2px gray;
+  height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 75px;
+  background: black;
+  color: white;
+  box-shadow: 0 2px 2px gray;
 `
 
 const logoStyle = css`
-    height: 100%;
-    display: flex;
-    align-items: center;
-    img {
-        height: 45px;
-        margin-right: 5px;
-    }
+  height: 100%;
+  display: flex;
+  align-items: center;
+  img {
+    height: 45px;
+    margin-right: 5px;
+  }
 `
 
 const navStyle = css`
-    width: 275px;
+  width: 275px;
     
-    ul {
-        display: flex;
-        justify-content: space-between;
-        list-style-type: none;
-    }
+  ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+  }
 `
 const itemStyle = css`
-    color: white;
-    font-size: 20px;
-    font-weight: 500;
-    text-decoration: none;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
 `
+
+const activeLinkStyle = css`
+  text-decoration: underline;
+`
+
+export default withRouter(Header)
