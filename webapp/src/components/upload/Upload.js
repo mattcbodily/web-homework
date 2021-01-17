@@ -5,9 +5,11 @@ import CSVReader from 'react-csv-reader'
 import { css } from '@emotion/core'
 import { v4 as uuidv4 } from 'uuid'
 import { ADD_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
+import { validateUploadData } from '../../helpers/helpers'
 
 const Upload = () => {
   const [uploadedTransactions, setUploadedTransactions] = useState([])
+  const [dataError, setDataError] = useState(false)
   const [addTransaction] = useMutation(ADD_TRANSACTION)
   const papaparseOptions = {
     header: true,
@@ -38,6 +40,12 @@ const Upload = () => {
   }, [uploadedTransactions])
 
   const uploadData = data => {
+    const valid = validateUploadData(data)
+
+    if (!valid) {
+      return setDataError(true)
+    }
+
     setUploadedTransactions(data)
   }
 
@@ -67,6 +75,9 @@ const Upload = () => {
         )
         : null
       }
+      {dataError
+        ? <p>There was an error uploading your data due to missing fields.</p>
+        : null}
     </section>
   )
 }
