@@ -16,6 +16,10 @@ Take a peek at what the project looks like:
 
 Examples of Jest tests and React component tests can be found in the webapp/src/__tests__ directory. I provided a couple examples of each to demonstrate my ability.
 
+## Uploading CSV Files
+
+A test CSV file can be found in webapp/src/csvTestFile
+
 ## Planning
 
 Before attempting the challenge, I went through planning what I needed to research and what I wanted the project to look like. Things I researched include:
