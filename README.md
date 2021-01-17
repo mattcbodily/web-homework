@@ -26,7 +26,7 @@ Before attempting the challenge, I went through planning what I needed to resear
 
 * MongoDB (no prior experience with Mongo before, and I LOVED it)
 * uuidv4 to add identifiers on transaction documents
-* Uploading CSV files to seed the MongoDB graphql DB
+* Uploading CSV files to seed the database
 * Emotion-js (love how similar it is to styled-components)
 
 Provided below is the basic wireframe I started with (some adjustments can be seen in the final product, especially regarding the color scheme):
