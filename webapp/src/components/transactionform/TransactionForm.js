@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import { v4 as uuidv4 } from 'uuid'
 import { ADD_TRANSACTION, UPDATE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
+import { validateUploadData } from '../../helpers/helpers'
 import { selectPaymentType } from './TransactionFormLogic'
 
 const TransactionForm = ({ editView, setEditView, transaction }) => {
@@ -42,17 +43,26 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
   const submitTransaction = (e) => {
     e.preventDefault()
 
+    const formData = {
+      amount: parseFloat(amount),
+      description,
+      category,
+      debit,
+      credit,
+      merchant_id: merchantID,
+      spendDate: date,
+      transaction_id: uuidv4()
+    }
+
+    const validFormData = validateUploadData([formData])
+
+    if (!validFormData) {
+      // To do: add a more stylized alert
+      return window.alert('Please fill out all transaction form inputs')
+    }
+
     addTransaction({
-      variables: {
-        amount: parseFloat(amount),
-        description,
-        category,
-        debit,
-        credit,
-        merchant_id: merchantID,
-        spendDate: date,
-        transaction_id: uuidv4()
-      },
+      variables: formData,
       refetchQueries: [{ query: GET_ALL_TRANSACTIONS }]
     })
     clearForm()
