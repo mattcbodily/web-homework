@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   lastName: { type: String, default: null },
   email: { type: String, default: null },
   password: { type: String, default: null },
-  userId: { type: String, default: null }
+  user_id: { type: String, default: null }
 })
 
 const model = mongoose.model('user', UserSchema)
