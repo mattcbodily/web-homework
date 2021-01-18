@@ -69,7 +69,7 @@ const mutation = new GraphQLObjectType({
       async resolve (parentValue, { firstName, lastName, email, password, user_id }) {
         const [foundUser] = UserModel.findOne({ email })
         if (foundUser) {
-          return
+          return 'Email already in use'
         }
 
         let salt = bcrypt.genSaltSync(10)
