@@ -1,5 +1,6 @@
 const graphql = require('graphql')
 const TransactionType = require('./transaction-type')
+const UserType = require('./user-type')
 const Transactions = require('../query-resolvers/transaction-resolvers.js')
 
 const {
@@ -36,6 +37,16 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve (parentValue, args) {
         return Transactions.find(args)
+      }
+    },
+    user: {
+      type: GraphQLList(UserType),
+      args: {
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
+      },
+      resolve (parentValue, args) {
+        // login functionality here
       }
     }
   })
