@@ -14,7 +14,7 @@ const Header = ({ location }) => {
       <nav css={navStyle}>
         <ul>
           <li>
-            <Link css={location.pathname === '/' ? [itemStyle, activeLinkStyle] : itemStyle} to='/'>Home</Link>
+            <Link css={location.pathname === '/home' ? [itemStyle, activeLinkStyle] : itemStyle} to='/home'>Home</Link>
           </li>
           <li>
             <Link css={location.pathname === '/upload' ? [itemStyle, activeLinkStyle] : itemStyle} to='/upload'>Upload</Link>
