@@ -67,7 +67,7 @@ const mutation = new GraphQLObjectType({
         user_id: { type: GraphQLString }
       },
       async resolve (parentValue, { firstName, lastName, email, password, user_id }) {
-        const [foundUser] = UserModel.findOne({ email })
+        const foundUser = await UserModel.findOne({ email })
         if (foundUser) {
           return 'Email already in use'
         }

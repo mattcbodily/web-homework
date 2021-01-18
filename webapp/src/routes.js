@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { css } from '@emotion/core'
 import Header from './components/header/Header'
 import Login from './components/auth/Login'
