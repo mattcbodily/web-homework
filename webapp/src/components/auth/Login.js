@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import { LOGIN_USER } from '../../queries/queries'
@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [loginUser, { data }] = useLazyQuery(LOGIN_USER)
 
-  const signInUser = async (e) => {
+  const signInUser = (e) => {
     e.preventDefault()
 
     loginUser({
@@ -18,11 +18,13 @@ const Login = () => {
         password
       }
     })
+  }
 
+  useEffect(() => {
     if (data && data.user) {
       setUser(data.user)
     }
-  }
+  }, [data])
 
   return (
     <section css={loginStyles}>
