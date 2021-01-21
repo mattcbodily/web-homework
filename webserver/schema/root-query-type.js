@@ -42,13 +42,13 @@ const RootQuery = new GraphQLObjectType({
       }
     },
     user: {
-      type: GraphQLList(UserType),
+      type: UserType,
       args: {
         email: { type: GraphQLString },
         password: { type: GraphQLString }
       },
       async resolve (parentValue, { email, password }) {
-        const [foundUser] = UserModel.findOne({ email })
+        const foundUser = await UserModel.findOne({ email })
         if (!foundUser) {
           return 'Account not found'
         }

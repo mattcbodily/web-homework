@@ -115,3 +115,21 @@ export const REGISTER_USER = gql`
     }
   }
 `
+
+export const LOGIN_USER = gql`
+  query loginUser(
+    $email: String!
+    $password: String!
+  ) {
+    user(
+      email: $email
+      password: $password
+    ) {
+      id,
+      firstName,
+      lastName,
+      email,
+      user_id
+    }
+  }
+`
