@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { REGISTER_USER, LOGIN_USER } from '../../queries/queries'
 import { getUser } from '../../redux/userReducer'
 
-const Register = ({ history, getUser }) => {
+const Register = ({ history, user, getUser }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -34,6 +34,12 @@ const Register = ({ history, getUser }) => {
   }
 
   useEffect(() => {
+    if (user.user_id) {
+      history.push('/home')
+    }
+  }, [])
+
+  useEffect(() => {
     if (data && data.registerUser) {
       getUser(data.registerUser)
       history.push('/home')
@@ -55,6 +61,7 @@ const Register = ({ history, getUser }) => {
 
 Register.propTypes = {
   history: PropTypes.object,
+  user: PropTypes.object,
   getUser: PropTypes.func
 }
 
@@ -62,5 +69,7 @@ const registerStyles = css`
   min-height: 100vh;
   padding-top: 120px;
 `
+
+const mapStateToProps = reduxState => reduxState
 
 export default connect(null, { getUser })(Register)

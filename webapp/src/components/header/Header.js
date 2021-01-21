@@ -10,21 +10,27 @@ const Header = ({ location, user }) => {
     <header css={headerStyle}>
       <section css={logoStyle}>
         <img alt='Divvy Logo' src={divvyLogo} />
-        <h1>Welcome, {user.firstName} {user.lastName}</h1>
+        {location.pathname !== '/' && location.pathname !== '/register'
+          ? <h1>Welcome, {user.firstName} {user.lastName}</h1>
+          : <h1>Divvy Challenge</h1>}
       </section>
-      <nav css={navStyle}>
-        <ul>
-          <li>
-            <Link css={location.pathname === '/home' ? [itemStyle, activeLinkStyle] : itemStyle} to='/home'>Home</Link>
-          </li>
-          <li>
-            <Link css={location.pathname === '/upload' ? [itemStyle, activeLinkStyle] : itemStyle} to='/upload'>Upload</Link>
-          </li>
-          <li>
-            <Link css={location.pathname === '/settings' ? [itemStyle, activeLinkStyle] : itemStyle} to='/settings'>Settings</Link>
-          </li>
-        </ul>
-      </nav>
+      {location.pathname !== '/' && location.pathname !== '/register'
+        ? (
+          <nav css={navStyle}>
+            <ul>
+              <li>
+                <Link css={location.pathname === '/home' ? [itemStyle, activeLinkStyle] : itemStyle} to='/home'>Home</Link>
+              </li>
+              <li>
+                <Link css={location.pathname === '/upload' ? [itemStyle, activeLinkStyle] : itemStyle} to='/upload'>Upload</Link>
+              </li>
+              <li>
+                <Link css={location.pathname === '/settings' ? [itemStyle, activeLinkStyle] : itemStyle} to='/settings'>Settings</Link>
+              </li>
+            </ul>
+          </nav>
+        )
+        : null}
     </header>
   )
 }

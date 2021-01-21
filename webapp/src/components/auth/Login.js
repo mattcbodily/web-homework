@@ -6,7 +6,7 @@ import { css } from '@emotion/core'
 import { LOGIN_USER } from '../../queries/queries'
 import { getUser } from '../../redux/userReducer'
 
-const Login = ({ history, getUser }) => {
+const Login = ({ history, user, getUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginUser, { data }] = useLazyQuery(LOGIN_USER)
@@ -21,6 +21,12 @@ const Login = ({ history, getUser }) => {
       }
     })
   }
+
+  useEffect(() => {
+    if (user.user_id) {
+      history.push('/home')
+    }
+  }, [])
 
   useEffect(() => {
     if (data && data.user) {
@@ -42,6 +48,7 @@ const Login = ({ history, getUser }) => {
 
 Login.propTypes = {
   history: PropTypes.object,
+  user: PropTypes.object,
   getUser: PropTypes.func
 }
 
@@ -51,4 +58,6 @@ const loginStyles = css`
   padding-top: 120px;
 `
 
-export default connect(null, { getUser })(Login)
+const mapStateToProps = reduxState => reduxState
+
+export default connect(mapStateToProps, { getUser })(Login)
