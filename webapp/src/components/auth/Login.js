@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import { LOGIN_USER } from '../../queries/queries'
+import { getUser } from '../../redux/userReducer'
 
-const Login = () => {
-  const [user, setUser] = useState({})
+const Login = ({ history, getUser }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginUser, { data }] = useLazyQuery(LOGIN_USER)
@@ -22,13 +24,13 @@ const Login = () => {
 
   useEffect(() => {
     if (data && data.user) {
-      setUser(data.user)
+      getUser(data.user)
+      history.push('/home')
     }
   }, [data])
 
   return (
     <section css={loginStyles}>
-      <h1>{user.firstName}</h1>
       <form>
         <input onChange={e => setEmail(e.target.value)} value={email} />
         <input onChange={e => setPassword(e.target.value)} value={password} />
@@ -38,10 +40,15 @@ const Login = () => {
   )
 }
 
+Login.propTypes = {
+  history: PropTypes.object,
+  getUser: PropTypes.func
+}
+
 const loginStyles = css`
   box-sizing: border-box;
   min-height: 100vh;
   padding-top: 120px;
 `
 
-export default Login
+export default connect(null, { getUser })(Login)

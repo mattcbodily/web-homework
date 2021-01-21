@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { useMutation } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import { v4 as uuidv4 } from 'uuid'
-import { REGISTER_USER } from '../../queries/queries'
+import { REGISTER_USER, LOGIN_USER } from '../../queries/queries'
+import { getUser } from '../../redux/userReducer'
 
-const Register = () => {
+const Register = ({ history, getUser }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [registerUser] = useMutation(REGISTER_USER)
+  const [registerUser, { data }] = useMutation(REGISTER_USER)
 
   const addUser = (e) => {
     e.preventDefault()
@@ -24,10 +27,18 @@ const Register = () => {
       }
 
       registerUser({
-        variables: userData
+        variables: userData,
+        refetchQueries: [{ query: LOGIN_USER, variables: { email, password } }]
       })
     }
   }
+
+  useEffect(() => {
+    if (data && data.registerUser) {
+      getUser(data.registerUser)
+      history.push('/home')
+    }
+  }, [data])
 
   return (
     <section css={registerStyles}>
@@ -42,9 +53,14 @@ const Register = () => {
   )
 }
 
-export default Register
+Register.propTypes = {
+  history: PropTypes.object,
+  getUser: PropTypes.func
+}
 
 const registerStyles = css`
   min-height: 100vh;
   padding-top: 120px;
 `
+
+export default connect(null, { getUser })(Register)

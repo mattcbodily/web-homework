@@ -108,6 +108,7 @@ export const REGISTER_USER = gql`
       password: $password,
       user_id: $user_id
     ) {
+      id,
       firstName,
       lastName,
       email,
