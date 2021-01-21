@@ -117,7 +117,7 @@ export const REGISTER_USER = gql`
 `
 
 export const LOGIN_USER = gql`
-  query loginUser(
+  query User(
     $email: String!
     $password: String!
   ) {

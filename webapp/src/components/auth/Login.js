@@ -12,15 +12,16 @@ const Login = () => {
   const signInUser = async (e) => {
     e.preventDefault()
 
-    await loginUser({
+    loginUser({
       variables: {
         email,
         password
       }
     })
 
-    console.log(data)
-    setUser(data)
+    if (data && data.user) {
+      setUser(data.user)
+    }
   }
 
   return (
