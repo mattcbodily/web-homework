@@ -92,3 +92,45 @@ export const UPDATE_TRANSACTION = gql`
     }
   }
 `
+
+export const REGISTER_USER = gql`
+  mutation(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+    $user_id: String!
+  ) {
+    registerUser(
+      firstName: $firstName,
+      lastName: $lastName,
+      email: $email,
+      password: $password,
+      user_id: $user_id
+    ) {
+      id,
+      firstName,
+      lastName,
+      email,
+      user_id
+    }
+  }
+`
+
+export const LOGIN_USER = gql`
+  query User(
+    $email: String!
+    $password: String!
+  ) {
+    user(
+      email: $email
+      password: $password
+    ) {
+      id,
+      firstName,
+      lastName,
+      email,
+      user_id
+    }
+  }
+`

@@ -60,7 +60,7 @@ const Upload = () => {
         ? (
           <section>
             <h3>Transactions Uploaded Successfully!</h3>
-            <p>View them below, navigate back <Link to='/'>home</Link> or upload more</p>
+            <p>View them below, navigate back <Link to='/home'>home</Link> or upload more</p>
             <div css={previewFlex}>
               {uploadedTransactions.map(transaction => (
                 <div css={previewStyles} key={uuidv4()}>

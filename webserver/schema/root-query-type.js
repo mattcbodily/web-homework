@@ -1,6 +1,9 @@
 const graphql = require('graphql')
+const bcrypt = require('bcryptjs')
 const TransactionType = require('./transaction-type')
+const UserType = require('./user-type')
 const Transactions = require('../query-resolvers/transaction-resolvers.js')
+const { UserModel } = require('../data-models/User')
 
 const {
   GraphQLBoolean,
@@ -36,6 +39,28 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve (parentValue, args) {
         return Transactions.find(args)
+      }
+    },
+    user: {
+      type: UserType,
+      args: {
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
+      },
+      async resolve (parentValue, { email, password }) {
+        const foundUser = await UserModel.findOne({ email })
+        if (!foundUser) {
+          return 'Account not found'
+        }
+
+        const authenticated = bcrypt.compareSync(password, foundUser.password)
+        if (!authenticated) {
+          return 'Password is incorrect'
+        }
+
+        delete foundUser.password
+
+        return foundUser
       }
     }
   })

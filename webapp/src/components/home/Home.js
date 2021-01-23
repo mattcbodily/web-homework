@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { useQuery } from '@apollo/react-hooks'
 import { css } from '@emotion/core'
 import Expenses from '../expenses/Expenses'
@@ -6,9 +8,15 @@ import TransactionForm from '../transactionform/TransactionForm'
 import TransactionList from '../transactions/TransactionList'
 import { GET_ALL_TRANSACTIONS } from '../../queries/queries'
 
-const Home = () => {
+const Home = ({ history, user }) => {
   const [transactions, setTransactions] = useState([])
   const { data } = useQuery(GET_ALL_TRANSACTIONS)
+
+  useEffect(() => {
+    if (!user.user_id) {
+      history.push('/')
+    }
+  }, [])
 
   useEffect(() => {
     if (data && data.transactions) {
@@ -25,6 +33,11 @@ const Home = () => {
       <TransactionList transactions={transactions} />
     </section>
   )
+}
+
+Home.propTypes = {
+  history: PropTypes.object,
+  user: PropTypes.object
 }
 
 const HomeLayout = css`
@@ -46,4 +59,6 @@ const FlexStyles = css`
   flex-direction: column;
 `
 
-export default Home
+const mapStateToProps = reduxState => reduxState
+
+export default connect(mapStateToProps)(Home)

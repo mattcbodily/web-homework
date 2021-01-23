@@ -1,35 +1,43 @@
 import React from 'react'
 import Proptypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { css } from '@emotion/core'
 import divvyLogo from '../../assets/divvy-logo.png'
 
-const Header = ({ location }) => {
+const Header = ({ location, user }) => {
   return (
     <header css={headerStyle}>
       <section css={logoStyle}>
         <img alt='Divvy Logo' src={divvyLogo} />
-        <h1>Divvy Challenge</h1>
+        {location.pathname !== '/' && location.pathname !== '/register'
+          ? <h1>Welcome, {user.firstName} {user.lastName}</h1>
+          : <h1>Divvy Challenge</h1>}
       </section>
-      <nav css={navStyle}>
-        <ul>
-          <li>
-            <Link css={location.pathname === '/' ? [itemStyle, activeLinkStyle] : itemStyle} to='/'>Home</Link>
-          </li>
-          <li>
-            <Link css={location.pathname === '/upload' ? [itemStyle, activeLinkStyle] : itemStyle} to='/upload'>Upload</Link>
-          </li>
-          <li>
-            <Link css={location.pathname === '/settings' ? [itemStyle, activeLinkStyle] : itemStyle} to='/settings'>Settings</Link>
-          </li>
-        </ul>
-      </nav>
+      {location.pathname !== '/' && location.pathname !== '/register'
+        ? (
+          <nav css={navStyle}>
+            <ul>
+              <li>
+                <Link css={location.pathname === '/home' ? [itemStyle, activeLinkStyle] : itemStyle} to='/home'>Home</Link>
+              </li>
+              <li>
+                <Link css={location.pathname === '/upload' ? [itemStyle, activeLinkStyle] : itemStyle} to='/upload'>Upload</Link>
+              </li>
+              <li>
+                <Link css={location.pathname === '/settings' ? [itemStyle, activeLinkStyle] : itemStyle} to='/settings'>Settings</Link>
+              </li>
+            </ul>
+          </nav>
+        )
+        : null}
     </header>
   )
 }
 
 Header.propTypes = {
-  location: Proptypes.object
+  location: Proptypes.object,
+  user: Proptypes.object
 }
 
 const headerStyle = css`
@@ -77,4 +85,6 @@ const activeLinkStyle = css`
   text-decoration: underline;
 `
 
-export default withRouter(Header)
+const mapStateToProps = reduxState => reduxState
+
+export default withRouter(connect(mapStateToProps)(Header))

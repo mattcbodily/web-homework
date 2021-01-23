@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { css } from '@emotion/core'
 import Header from './components/header/Header'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
 import Home from './components/home/Home'
 import Upload from './components/upload/Upload'
 import Settings from './components/settings/Settings'
@@ -11,7 +13,9 @@ function AppRouter () {
     <Router>
       <div css={layoutStyle}>
         <Header />
-        <Route component={Home} exact path='/' />
+        <Route component={Login} exact path='/' />
+        <Route component={Register} exact path='/register' />
+        <Route component={Home} exact path='/home' />
         <Route component={Upload} exact path='/upload' />
         <Route component={Settings} exact path='/settings' />
       </div>
