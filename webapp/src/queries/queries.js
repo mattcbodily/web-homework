@@ -104,19 +104,25 @@ export const REGISTER_USER = gql`
     $email: String!
     $password: String!
     $user_id: String!
+    $romanNumeralSetting: Boolean!
+    $darkMode: Boolean!
   ) {
     registerUser(
       firstName: $firstName,
       lastName: $lastName,
       email: $email,
       password: $password,
-      user_id: $user_id
+      user_id: $user_id,
+      romanNumeralSetting: $romanNumeralSetting,
+      darkMode: $darkMode
     ) {
       id,
       firstName,
       lastName,
       email,
-      user_id
+      user_id,
+      romanNumeralSetting,
+      darkMode
     }
   }
 `
@@ -134,7 +140,9 @@ export const LOGIN_USER = gql`
       firstName,
       lastName,
       email,
-      user_id
+      user_id,
+      romanNumeralSetting,
+      darkMode
     }
   }
 `

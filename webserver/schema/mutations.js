@@ -64,9 +64,11 @@ const mutation = new GraphQLObjectType({
         lastName: { type: GraphQLString },
         email: { type: GraphQLString },
         password: { type: GraphQLString },
-        user_id: { type: GraphQLString }
+        user_id: { type: GraphQLString },
+        romanNumeralSetting: { type: GraphQLBoolean },
+        darkMode: { type: GraphQLBoolean }
       },
-      async resolve (parentValue, { firstName, lastName, email, password, user_id }) {
+      async resolve (parentValue, { firstName, lastName, email, password, user_id, romanNumeralSetting, darkMode }) {
         const foundUser = await UserModel.findOne({ email })
         if (foundUser) {
           return 'Email already in use'
@@ -75,7 +77,35 @@ const mutation = new GraphQLObjectType({
         let salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(password, salt)
 
-        return (new UserModel({ firstName, lastName, email, password: hash, user_id })).save()
+        return (new UserModel({ firstName, lastName, email, password: hash, user_id, romanNumeralSetting, darkMode })).save()
+      }
+    },
+    updateRomanNumeralSetting: {
+      type: UserType,
+      args: {
+        user_id: { type: GraphQLString },
+        romanNumeralSetting: { type: GraphQLBoolean }
+      },
+      resolve(parent, { user_id, romanNumeralSetting }){
+        return UserModel.findOneAndUpdate(
+          { user_id },
+          { romanNumeralSetting },
+          { new: true }
+        )
+      }
+    },
+    updateDarkMode: {
+      type: UserType,
+      args: {
+        user_id: { type: GraphQLString },
+        darkMode: { type: GraphQLBoolean }
+      },
+      resolve(parent, { user_id, darkMode }){
+        return UserModel.findOneAndUpdate(
+          { user_id },
+          { darkMode },
+          { new: true }
+        )
       }
     }
   }

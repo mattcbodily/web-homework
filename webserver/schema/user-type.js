@@ -2,9 +2,9 @@
 const path = require('path')
 const graphql = require('graphql')
 const {
-  GraphQLList,
   GraphQLString,
-  GraphQLObjectType
+  GraphQLObjectType,
+  GraphQLBoolean
 } = graphql
 
 const UserSchema = require(path.join('..', 'data-models', 'User')) // eslint-disable-line no-unused-vars
@@ -17,7 +17,9 @@ const UserType = new GraphQLObjectType({
     lastName: { type: GraphQLString },
     email: { type: GraphQLString },
     password: { type: GraphQLString },
-    user_id: { type: GraphQLString }
+    user_id: { type: GraphQLString },
+    romanNumeralSetting: { type: GraphQLBoolean },
+    darkMode: { type: GraphQLBoolean }
   })
 })
 

@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { REGISTER_USER, LOGIN_USER } from '../../queries/queries'
 import { getUser } from '../../redux/userReducer'
 
-const Register = ({ history, user, getUser, userId }) => {
+const Register = ({ history, getUser, userId }) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -23,7 +23,9 @@ const Register = ({ history, user, getUser, userId }) => {
         lastName,
         email,
         password,
-        user_id: uuidv4()
+        user_id: uuidv4(),
+        romanNumeralSetting: false,
+        darkMode: false
       }
 
       registerUser({
@@ -61,7 +63,6 @@ const Register = ({ history, user, getUser, userId }) => {
 
 Register.propTypes = {
   history: PropTypes.object,
-  user: PropTypes.object,
   getUser: PropTypes.func,
   userId: PropTypes.string
 }
