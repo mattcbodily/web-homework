@@ -24,7 +24,7 @@ export function validateUploadData (data) {
 }
 
 export function romanize (num) {
-  if (num) {
+  if (num && num !== 0) {
     const lookup = { M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1 }
     let roman = ''
     let i
@@ -36,5 +36,7 @@ export function romanize (num) {
     }
 
     return roman
+  } else if (num === 0) {
+    return 0
   }
 }

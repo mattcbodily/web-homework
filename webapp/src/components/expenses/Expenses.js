@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Doughnut } from 'react-chartjs-2'
+import { connect } from 'react-redux'
 import { css } from '@emotion/core'
+import { romanize } from '../../helpers/helpers'
 
-const Expenses = ({ transactions }) => {
+const Expenses = ({ transactions, romanNumeralSetting }) => {
   const [totalSpend, setTotalSpend] = useState(0)
   const [debitSpend, setDebitSpend] = useState(0)
   const [creditSpend, setCreditSpend] = useState(0)
@@ -13,23 +15,23 @@ const Expenses = ({ transactions }) => {
     const debitSum = transactions.filter(el => el.debit).reduce((acc, curr) => acc + curr.amount, 0)
     const creditSum = transactions.filter(el => el.credit).reduce((acc, curr) => acc + curr.amount, 0)
 
-    setTotalSpend(allSum)
-    setDebitSpend(debitSum)
-    setCreditSpend(creditSum)
+    setTotalSpend(allSum.toFixed(2))
+    setDebitSpend(debitSum.toFixed(2))
+    setCreditSpend(creditSum.toFixed(2))
   }, [transactions])
 
   return (
     <section css={expensesStyles}>
       <div css={spendDataStyles}>
         <h2>Total Expenses</h2>
-        <p css={totalSpendStyles}>${totalSpend}</p>
+        <p css={totalSpendStyles}>${romanNumeralSetting ? romanize(totalSpend) : totalSpend}</p>
         <div css={boxFlex}>
           <div css={debitBox} />
-          <p>Debit: ${debitSpend}</p>
+          <p>Debit: ${romanNumeralSetting ? romanize(debitSpend) : debitSpend}</p>
         </div>
         <div css={boxFlex}>
           <div css={creditBox} />
-          <p>Credit: ${creditSpend}</p>
+          <p>Credit: ${romanNumeralSetting ? romanize(creditSpend) : creditSpend}</p>
         </div>
       </div>
       <div css={chartContainer}>
@@ -53,10 +55,9 @@ const Expenses = ({ transactions }) => {
 }
 
 Expenses.propTypes = {
-  transactions: PropTypes.array
+  transactions: PropTypes.array,
+  romanNumeralSetting: PropTypes.bool
 }
-
-export default Expenses
 
 const expensesStyles = css`
   box-sizing: border-box;
@@ -113,3 +114,11 @@ const boxFlex = css`
 const chartContainer = css`
   width: 45%;
 `
+
+const mapStateToProps = reduxState => {
+  return {
+    romanNumeralSetting: reduxState.user.romanNumeralSetting
+  }
+}
+
+export default connect(mapStateToProps)(Expenses)

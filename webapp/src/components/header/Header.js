@@ -49,7 +49,7 @@ const headerStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 75px;
+  padding: 0 3vw;
   background: black;
   color: white;
   box-shadow: 0 2px 2px gray;
