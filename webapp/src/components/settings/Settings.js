@@ -1,42 +1,30 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState } from 'react'
 import { css } from '@emotion/core'
 
 const Settings = () => {
-  let [numInput, setNumInput] = useState('')
-  let [romanNumeral, setRomanNumeral] = useState('')
+  const [romanNumerals, setRomanNumerals] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
 
-  const romanize = () => {
-    if (numInput) {
-      const lookup = { M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1 }
-      let roman = ''
-      let i
-      for (i in lookup) {
-        while (numInput >= lookup[i]) {
-          roman += i
-          numInput -= lookup[i]
-        }
-      }
-      setRomanNumeral(roman)
-      setNumInput('')
-    }
+  const toggleRomanNumerals = () => {
+    setRomanNumerals(!romanNumerals)
+  }
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode)
   }
 
   return (
     <section css={settingsStyle}>
-      <h2>Welcome to the settings page!</h2>
-      <p>This is the future home of incredible features such as this:</p>
-      <div>
-        <h3>Turn your numbers into roman numerals</h3>
-        <input id='num-input' onChange={e => setNumInput(e.target.value)} type='number' value={numInput} />
-        <button id='romanize-btn' onClick={romanize}>Romanize</button>
-        {romanNumeral
-          ? (
-            <Fragment>
-              <p id='roman-numeral'>Roman Numeral: {romanNumeral}</p>
-              <p>DISCLAIMER: This developers knowledge of roman numerals is limited to <br />Super Bowl numbers and Star Wars episodes. Just kidding.</p>
-            </Fragment>
-          )
-          : null}
+      <h1>Settings</h1>
+      <p>Display numbers as roman numerals</p>
+      <div css={toggleStyles}>
+        <input checked={romanNumerals} css={inputStyles} onChange={toggleRomanNumerals} type='checkbox' />
+        <span css={sliderStyles} />
+      </div>
+      <p>Dark Mode</p>
+      <div css={toggleStyles}>
+        <input checked={darkMode} css={inputStyles} onChange={toggleDarkMode} type='checkbox' />
+        <span css={sliderStyles} />
       </div>
     </section>
   )
@@ -45,24 +33,72 @@ const Settings = () => {
 const settingsStyle = css`
   min-height: 100vh;
   padding: 120px;
+`
 
-  input {
-    box-sizing: border-box;
-    height: 30px;
-    width: 150px;
-    margin-right: 10px;
-    border-radius: 5px;
-    border: 1px solid black;
+const toggleStyles = css`
+  position: relative;
+  &:after {
+    content: '';
+    font-size: 18px;
+    position: absolute;
+    top: 7px;
+    left: 37px;
   }
 
-  button {
-    box-sizing: border-box;
-    height: 30px;
-    width: 75px;
-    background: white;
-    border-radius: 5px;
-    border: 2px solid black;
-    cursor: pointer;
+  &:before {
+    content: '';
+    font-size: 18px;
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    z-index: 1;
+  }
+`
+
+const inputStyles = css`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  opacity: 0;
+  cursor: pointer;
+  
+  &:hover + span:after {
+    box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  &:checked + span {
+    background: #3a9df8;
+    &:after {
+      transform: translate3d(32px, 0, 0);
+    }
+  }
+`
+
+const sliderStyles = css`
+  position: relative;
+  display: block;
+  height: 32px;
+  width: 64px;
+  border-radius: 32px;
+  transition: 0.25s ease-in-out;
+  background: #4a5b90;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.15);
+
+  &:after {
+    content: '';
+    position: absolute;
+    border-radius: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: 0.25s ease-in-out;
+    width: 32px;
+    height: 32px;
   }
 `
 
