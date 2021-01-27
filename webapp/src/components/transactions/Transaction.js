@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
+import { connect } from 'react-redux'
 import { css } from '@emotion/core'
 import TransactionForm from '../transactionform/TransactionForm'
 import { DELETE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 
-const Transaction = ({ transaction }) => {
+const Transaction = ({ transaction, userId }) => {
   const [editView, setEditView] = useState(false)
   const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
 
@@ -24,10 +25,16 @@ const Transaction = ({ transaction }) => {
         <p css={transactionAmount}>${transaction.amount}</p>
         <p css={transactionAmount}>{transaction.debit ? 'Debit' : 'Credit'}</p>
         <p>Description: {transaction.description}<br />Date: {transaction.spendDate}</p>
-        {editView
-          ? <button css={editButtonStyles} onClick={() => setEditView(false)}>Cancel</button>
-          : <button css={editButtonStyles} onClick={() => setEditView(true)}>Edit</button>}
-        <button css={deleteButtonStyles} onClick={removeTransaction}>Delete</button>
+        {transaction.user_id === userId
+          ? (
+            <Fragment>
+              {editView
+                ? <button css={editButtonStyles} onClick={() => setEditView(false)}>Cancel</button>
+                : <button css={editButtonStyles} onClick={() => setEditView(true)}>Edit</button>}
+              <button css={deleteButtonStyles} onClick={removeTransaction}>Delete</button>
+            </Fragment>
+          )
+          : null}
       </section>
       {editView
         ? (
@@ -39,7 +46,8 @@ const Transaction = ({ transaction }) => {
 }
 
 Transaction.propTypes = {
-  transaction: PropTypes.object
+  transaction: PropTypes.object,
+  userId: PropTypes.string
 }
 
 const transactionStyle = css`
@@ -96,4 +104,10 @@ const deleteButtonStyles = css`
   }
 `
 
-export default Transaction
+const mapStateToProps = reduxState => {
+  return {
+    userId: reduxState.user.user_id
+  }
+}
+
+export default connect(mapStateToProps)(Transaction)

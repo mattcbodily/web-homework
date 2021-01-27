@@ -34,8 +34,6 @@ TransactionList.propTypes = {
   transactions: PropTypes.array
 }
 
-export default TransactionList
-
 const transactionListStyle = css`
   box-sizing: border-box;
   height: calc(82vh + 20px);
@@ -71,3 +69,5 @@ const scrollBox = css`
   box-sizing: border-box;
   width: 100%;
 `
+
+export default TransactionList
