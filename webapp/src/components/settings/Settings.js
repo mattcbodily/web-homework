@@ -1,15 +1,26 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { useMutation } from '@apollo/react-hooks'
+import { connect } from 'react-redux'
 import { css } from '@emotion/core'
+import { UPDATE_ROMAN_SETTING, UPDATE_DARK_MODE } from '../../queries/queries'
+import { updateRomanSetting, updateDarkMode } from '../../redux/userReducer'
 
-const Settings = () => {
-  const [romanNumerals, setRomanNumerals] = useState(false)
-  const [darkMode, setDarkMode] = useState(false)
+const Settings = ({ userId, romanNumeralSetting, darkModeSetting, updateRomanSetting, updateDarkMode }) => {
+  const [romanNumerals, setRomanNumerals] = useState(romanNumeralSetting)
+  const [darkMode, setDarkMode] = useState(darkModeSetting)
+  const [romanSettingMutation] = useMutation(UPDATE_ROMAN_SETTING)
+  const [darkModeMutation] = useMutation(UPDATE_DARK_MODE)
 
   const toggleRomanNumerals = () => {
+    romanSettingMutation({ variables: { user_id: userId, romanNumeralSetting: !romanNumerals } })
+    updateRomanSetting(!romanNumerals)
     setRomanNumerals(!romanNumerals)
   }
 
   const toggleDarkMode = () => {
+    darkModeMutation({ variables: { user_id: userId, darkMode: !darkMode } })
+    updateDarkMode(!darkMode)
     setDarkMode(!darkMode)
   }
 
@@ -28,6 +39,14 @@ const Settings = () => {
       </div>
     </section>
   )
+}
+
+Settings.propTypes = {
+  userId: PropTypes.string,
+  romanNumeralSetting: PropTypes.bool,
+  darkModeSetting: PropTypes.bool,
+  updateRomanSetting: PropTypes.func,
+  updateDarkMode: PropTypes.func
 }
 
 const settingsStyle = css`
@@ -102,4 +121,12 @@ const sliderStyles = css`
   }
 `
 
-export default Settings
+const mapStateToProps = reduxState => {
+  return {
+    userId: reduxState.user.user_id,
+    romanNumeralSetting: reduxState.user.romanNumeralSetting,
+    darkModeSetting: reduxState.user.darkMode
+  }
+}
+
+export default connect(mapStateToProps, { updateRomanSetting, updateDarkMode })(Settings)

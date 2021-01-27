@@ -146,3 +146,43 @@ export const LOGIN_USER = gql`
     }
   }
 `
+
+export const UPDATE_ROMAN_SETTING = gql`
+  mutation(
+    $user_id: String!
+    $romanNumeralSetting: Boolean!
+  ) {
+    updateRomanNumeralSetting(
+      user_id: $user_id,
+      romanNumeralSetting: $romanNumeralSetting
+    ) {
+      id,
+      firstName,
+      lastName,
+      email,
+      user_id,
+      romanNumeralSetting,
+      darkMode
+    }
+  }
+`
+
+export const UPDATE_DARK_MODE = gql`
+  mutation(
+    $user_id: String!
+    $darkMode: Boolean!
+  ) {
+    updateDarkMode(
+      user_id: $user_id,
+      darkMode: $darkMode
+    ) {
+      id,
+      firstName,
+      lastName,
+      email,
+      user_id,
+      romanNumeralSetting,
+      darkMode
+    }
+  }
+`
