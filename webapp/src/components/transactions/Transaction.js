@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import { css } from '@emotion/core'
 import TransactionForm from '../transactionform/TransactionForm'
 import { DELETE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
+import { romanize } from '../../helpers/helpers'
 
-const Transaction = ({ transaction, userId }) => {
+const Transaction = ({ transaction, userId, romanNumeralSetting }) => {
   const [editView, setEditView] = useState(false)
   const [deleteTransaction] = useMutation(DELETE_TRANSACTION)
 
@@ -22,7 +23,7 @@ const Transaction = ({ transaction, userId }) => {
   return (
     <section>
       <section css={transactionStyle}>
-        <p css={transactionAmount}>${transaction.amount}</p>
+        <p css={transactionAmount}>${romanNumeralSetting ? romanize(transaction.amount) : transaction.amount}</p>
         <p css={transactionAmount}>{transaction.debit ? 'Debit' : 'Credit'}</p>
         <p>Description: {transaction.description}<br />Date: {transaction.spendDate}</p>
         {transaction.user_id === userId
@@ -47,7 +48,8 @@ const Transaction = ({ transaction, userId }) => {
 
 Transaction.propTypes = {
   transaction: PropTypes.object,
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  romanNumeralSetting: PropTypes.bool
 }
 
 const transactionStyle = css`
@@ -106,7 +108,8 @@ const deleteButtonStyles = css`
 
 const mapStateToProps = reduxState => {
   return {
-    userId: reduxState.user.user_id
+    userId: reduxState.user.user_id,
+    romanNumeralSetting: reduxState.user.romanNumeralSetting
   }
 }
 
