@@ -11,6 +11,7 @@ export const GET_ALL_TRANSACTIONS = gql`
       merchantID: merchant_id,
       spendDate,
       transactionId: transaction_id
+      user_id
     }
   }
 `
@@ -25,6 +26,7 @@ export const ADD_TRANSACTION = gql`
     $merchant_id: String!
     $spendDate: String!
     $transaction_id: String!
+    $user_id: String!
   ) {
     addTransaction(
       amount: $amount
@@ -35,6 +37,7 @@ export const ADD_TRANSACTION = gql`
       merchant_id: $merchant_id
       spendDate: $spendDate
       transaction_id: $transaction_id
+      user_id: $user_id
     ) {
       amount,
       description,
@@ -43,7 +46,8 @@ export const ADD_TRANSACTION = gql`
       credit,
       merchantID: merchant_id,
       spendDate,
-      transactionId: transaction_id
+      transactionId: transaction_id,
+      user_id
     } 
   }
 `

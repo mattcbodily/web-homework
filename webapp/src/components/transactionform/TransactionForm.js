@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
+import { connect } from 'react-redux'
 import { css } from '@emotion/core'
 import { v4 as uuidv4 } from 'uuid'
 import { ADD_TRANSACTION, UPDATE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 import { validateUploadData } from '../../helpers/helpers'
 import { selectPaymentType } from './TransactionFormLogic'
 
-const TransactionForm = ({ editView, setEditView, transaction }) => {
+const TransactionForm = ({ editView, setEditView, transaction, userId }) => {
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
@@ -51,7 +52,8 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
       credit,
       merchant_id: merchantID,
       spendDate: date,
-      transaction_id: uuidv4()
+      transaction_id: uuidv4(),
+      user_id: userId
     }
 
     const validFormData = validateUploadData([formData])
@@ -132,7 +134,8 @@ const TransactionForm = ({ editView, setEditView, transaction }) => {
 TransactionForm.propTypes = {
   editView: PropTypes.string,
   setEditView: PropTypes.func,
-  transaction: PropTypes.object
+  transaction: PropTypes.object,
+  userId: PropTypes.string
 }
 
 const formStyles = css`
@@ -249,4 +252,10 @@ const ButtonStyles = css`
   }
 `
 
-export default TransactionForm
+const mapStateToProps = reduxState => {
+  return {
+    userId: reduxState.user.user_id
+  }
+}
+
+export default connect(mapStateToProps)(TransactionForm)
