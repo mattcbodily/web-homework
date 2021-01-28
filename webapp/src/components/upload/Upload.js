@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { ADD_TRANSACTION, GET_ALL_TRANSACTIONS } from '../../queries/queries'
 import { validateUploadData } from '../../helpers/helpers'
 
-const Upload = ({ userId, darkMode }) => {
+const Upload = ({ userId, darkMode, history }) => {
   const [uploadedTransactions, setUploadedTransactions] = useState([])
   const [dataError, setDataError] = useState(false)
   const [addTransaction] = useMutation(ADD_TRANSACTION)
@@ -93,7 +93,8 @@ const Upload = ({ userId, darkMode }) => {
 
 Upload.propTypes = {
   userId: PropTypes.string,
-  darkMode: PropTypes.bool
+  darkMode: PropTypes.bool,
+  history: PropTypes.object
 }
 
 const uploadStyles = css`

@@ -66,6 +66,23 @@ Settings.propTypes = {
 const settingsStyle = css`
   min-height: 100vh;
   padding: 120px;
+
+  button {
+    box-sizing: border-box;
+    height: 35px;
+    width: 200px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background: #159f6d;
+    color: white;
+    font-size: 16px;
+    transition: 200ms;
+  }
+
+  button:hover {
+    background: #117852;
+  }
 `
 
 const toggleStyles = css`
