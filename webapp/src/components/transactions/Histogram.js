@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { css } from '@emotion/core'
 import { Bar } from 'react-chartjs-2'
 
-const Histogram = ({ transactions }) => {
+const Histogram = ({ transactions, darkMode }) => {
   const [chartType, setChartType] = useState('day')
   const [days, setDays] = useState([])
   const [dailyAmounts, setDailyAmounts] = useState([])
@@ -54,7 +55,7 @@ const Histogram = ({ transactions }) => {
   }, [chartType, transactions])
 
   return (
-    <section css={histogramContainer}>
+    <section css={darkMode ? [histogramContainer, darkModeStyles] : histogramContainer}>
       <h2>Spending Trends</h2>
       <p>View by:
         <button css={chartType === 'day' ? [buttonStyles, activeStyles] : buttonStyles} onClick={() => setChartType('day')}>Date</button>
@@ -64,7 +65,7 @@ const Histogram = ({ transactions }) => {
         data={{
           labels: chartType === 'day' ? days : categories,
           datasets: [{
-            backgroundColor: '#C1DFF0',
+            backgroundColor: '#FF5A5F',
             data: chartType === 'day' ? dailyAmounts : categoryAmounts
           }]
         }}
@@ -86,7 +87,8 @@ const Histogram = ({ transactions }) => {
 }
 
 Histogram.propTypes = {
-  transactions: PropTypes.array
+  transactions: PropTypes.array,
+  darkMode: PropTypes.bool
 }
 
 const histogramContainer = css`
@@ -118,4 +120,18 @@ const activeStyles = `
   font-weight: bold;
 `
 
-export default Histogram
+const darkModeStyles = css`
+  background: #1c2541;
+
+  button {
+    color: white;
+  }
+`
+
+const mapStateToProps = reduxState => {
+  return {
+    darkMode: reduxState.user.darkMode
+  }
+}
+
+export default connect(mapStateToProps)(Histogram)

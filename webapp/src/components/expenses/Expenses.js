@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { css } from '@emotion/core'
 import { romanize } from '../../helpers/helpers'
 
-const Expenses = ({ transactions, romanNumeralSetting }) => {
+const Expenses = ({ transactions, romanNumeralSetting, darkMode }) => {
   const [totalSpend, setTotalSpend] = useState(0)
   const [debitSpend, setDebitSpend] = useState(0)
   const [creditSpend, setCreditSpend] = useState(0)
@@ -21,7 +21,7 @@ const Expenses = ({ transactions, romanNumeralSetting }) => {
   }, [transactions])
 
   return (
-    <section css={expensesStyles}>
+    <section css={darkMode ? [expensesStyles, darkModeStyles] : expensesStyles}>
       <div css={spendDataStyles}>
         <h2>Total Expenses</h2>
         <p css={totalSpendStyles}>${romanNumeralSetting ? romanize(totalSpend) : totalSpend}</p>
@@ -56,7 +56,8 @@ const Expenses = ({ transactions, romanNumeralSetting }) => {
 
 Expenses.propTypes = {
   transactions: PropTypes.array,
-  romanNumeralSetting: PropTypes.bool
+  romanNumeralSetting: PropTypes.bool,
+  darkMode: PropTypes.bool
 }
 
 const expensesStyles = css`
@@ -115,9 +116,14 @@ const chartContainer = css`
   width: 45%;
 `
 
+const darkModeStyles = css`
+  background: #1c2541;
+`
+
 const mapStateToProps = reduxState => {
   return {
-    romanNumeralSetting: reduxState.user.romanNumeralSetting
+    romanNumeralSetting: reduxState.user.romanNumeralSetting,
+    darkMode: reduxState.user.darkMode
   }
 }
 

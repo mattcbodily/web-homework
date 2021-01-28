@@ -8,7 +8,7 @@ import { ADD_TRANSACTION, UPDATE_TRANSACTION, GET_ALL_TRANSACTIONS } from '../..
 import { validateUploadData } from '../../helpers/helpers'
 import { selectPaymentType } from './TransactionFormLogic'
 
-const TransactionForm = ({ editView, setEditView, transaction, userId }) => {
+const TransactionForm = ({ editView, setEditView, transaction, userId, darkMode }) => {
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
@@ -91,7 +91,7 @@ const TransactionForm = ({ editView, setEditView, transaction, userId }) => {
   }
 
   return (
-    <form css={editView === 'true' ? [formStyles, editFormStyles] : formStyles}>
+    <form css={editView === 'true' ? darkModeStyles ? [formStyles, editFormStyles, darkModeStyles] : [formStyles, editFormStyles] : darkMode ? [formStyles, darkModeStyles] : formStyles}>
       {!editView
         ? <h2>Add a Transaction</h2>
         : null}
@@ -119,8 +119,8 @@ const TransactionForm = ({ editView, setEditView, transaction, userId }) => {
         <label css={labelStyles}>
           Payment Type
           <div css={buttonGroup}>
-            <input css={debit ? activeDebitStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('debit', debit, credit, setDebit, setCredit)} type='button' value='Debit' />
-            <input css={credit ? activeCreditStyles : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit', debit, credit, setDebit, setCredit, false)} type='button' value='Credit' />
+            <input css={debit ? activeDebitStyles : darkMode ? passiveDarkModeBtn : passivePaymentTypeStyles} onClick={() => selectPaymentType('debit', debit, credit, setDebit, setCredit)} type='button' value='Debit' />
+            <input css={credit ? activeCreditStyles : darkMode ? passiveDarkModeBtn : passivePaymentTypeStyles} onClick={() => selectPaymentType('credit', debit, credit, setDebit, setCredit, false)} type='button' value='Credit' />
           </div>
         </label>
         {editView
@@ -135,7 +135,8 @@ TransactionForm.propTypes = {
   editView: PropTypes.string,
   setEditView: PropTypes.func,
   transaction: PropTypes.object,
-  userId: PropTypes.string
+  userId: PropTypes.string,
+  darkMode: PropTypes.bool
 }
 
 const formStyles = css`
@@ -252,9 +253,29 @@ const ButtonStyles = css`
   }
 `
 
+const darkModeStyles = css`
+  background: #1c2541;
+
+  input[type=number], input[type=text], input[type=date] {
+    background: #3a506b;
+    color: white;
+  }
+
+  button {
+    border-color: white;
+    color: white;
+  }
+`
+
+const passiveDarkModeBtn = css`
+  background: #3a506b;
+  color: white;
+`
+
 const mapStateToProps = reduxState => {
   return {
-    userId: reduxState.user.user_id
+    userId: reduxState.user.user_id,
+    darkMode: reduxState.user.darkMode
   }
 }
 
