@@ -21,6 +21,12 @@ const Upload = ({ userId, darkMode }) => {
   }
 
   useEffect(() => {
+    if (!userId) {
+      history.push('/')
+    }
+  }, [])
+
+  useEffect(() => {
     uploadedTransactions && uploadedTransactions.map(transaction => {
       const date = new Date()
       const dateOfUpload = `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`

@@ -40,7 +40,7 @@ const Login = ({ history, user, getUser }) => {
   return (
     <section css={loginStyles}>
       <img alt='Divvy' src={divvyLogo} />
-      <h1>Welcome to the Divvy Challenge</h1>
+      <h1>Login to the Divvy Challenge</h1>
       <form css={formStyles}>
         <input onChange={e => setEmail(e.target.value)} placeholder='Email' value={email} />
         <input onChange={e => setPassword(e.target.value)} placeholder='Password' type='password' value={password} />
@@ -90,7 +90,7 @@ const loginStyles = css`
     box-sizing: border-box;
     height: 35px;
     width: 90%;
-    margin-top: 5px;
+    margin-top: 10px;
     border-radius: 5px;
     border: 1px solid black;
     background: #159f6d;

@@ -36,7 +36,7 @@ export function romanize (num) {
     }
 
     return roman
-  } else if (num === 0) {
-    return 0
+  } else if (num === 0 || num === '0.00') {
+    return num
   }
 }

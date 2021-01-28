@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useMutation } from '@apollo/react-hooks'
 import { connect } from 'react-redux'
 import { css } from '@emotion/core'
 import { UPDATE_ROMAN_SETTING, UPDATE_DARK_MODE } from '../../queries/queries'
-import { updateRomanSetting, updateDarkMode } from '../../redux/userReducer'
+import { clearUser, updateRomanSetting, updateDarkMode } from '../../redux/userReducer'
 
-const Settings = ({ userId, romanNumeralSetting, darkModeSetting, updateRomanSetting, updateDarkMode }) => {
+const Settings = ({ userId, romanNumeralSetting, darkModeSetting, clearUser, updateRomanSetting, updateDarkMode, history }) => {
   const [romanNumerals, setRomanNumerals] = useState(romanNumeralSetting)
   const [darkMode, setDarkMode] = useState(darkModeSetting)
   const [romanSettingMutation] = useMutation(UPDATE_ROMAN_SETTING)
   const [darkModeMutation] = useMutation(UPDATE_DARK_MODE)
+
+  useEffect(() => {
+    if (!userId) {
+      history.push('/')
+    }
+  }, [])
 
   const toggleRomanNumerals = () => {
     romanSettingMutation({ variables: { user_id: userId, romanNumeralSetting: !romanNumerals } })
@@ -22,6 +28,11 @@ const Settings = ({ userId, romanNumeralSetting, darkModeSetting, updateRomanSet
     darkModeMutation({ variables: { user_id: userId, darkMode: !darkMode } })
     updateDarkMode(!darkMode)
     setDarkMode(!darkMode)
+  }
+
+  const logoutUser = () => {
+    clearUser()
+    history.push('/')
   }
 
   return (
@@ -37,6 +48,7 @@ const Settings = ({ userId, romanNumeralSetting, darkModeSetting, updateRomanSet
         <input checked={darkMode} css={inputStyles} onChange={toggleDarkMode} type='checkbox' />
         <span css={sliderStyles} />
       </div>
+      <button onClick={logoutUser}>Logout</button>
     </section>
   )
 }
@@ -45,8 +57,10 @@ Settings.propTypes = {
   userId: PropTypes.string,
   romanNumeralSetting: PropTypes.bool,
   darkModeSetting: PropTypes.bool,
+  clearUser: PropTypes.func,
   updateRomanSetting: PropTypes.func,
-  updateDarkMode: PropTypes.func
+  updateDarkMode: PropTypes.func,
+  history: PropTypes.object
 }
 
 const settingsStyle = css`
@@ -56,6 +70,8 @@ const settingsStyle = css`
 
 const toggleStyles = css`
   position: relative;
+  margin-bottom: 35px;
+
   &:after {
     content: '';
     font-size: 18px;
@@ -129,4 +145,4 @@ const mapStateToProps = reduxState => {
   }
 }
 
-export default connect(mapStateToProps, { updateRomanSetting, updateDarkMode })(Settings)
+export default connect(mapStateToProps, { clearUser, updateRomanSetting, updateDarkMode })(Settings)

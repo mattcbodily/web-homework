@@ -13,7 +13,7 @@ const TransactionForm = ({ editView, setEditView, transaction, userId, darkMode 
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
   const [date, setDate] = useState('')
-  const [debit, setDebit] = useState(false)
+  const [debit, setDebit] = useState(true)
   const [credit, setCredit] = useState(false)
   const [merchantID, setMerchantID] = useState('')
   const [addTransaction] = useMutation(ADD_TRANSACTION)
@@ -37,7 +37,7 @@ const TransactionForm = ({ editView, setEditView, transaction, userId, darkMode 
     setCategory('')
     setDate('')
     setMerchantID('')
-    setDebit(false)
+    setDebit(true)
     setCredit(false)
   }
 
@@ -242,14 +242,13 @@ const ButtonStyles = css`
   border-radius: 5px;
   margin-top: 15px;
   border: 2px solid black;
-  background: transparent;
-  color: black;
+  background: #159f6d;
+  color: white;
   font-size: 16px;
   cursor: pointer;
   transition: 200ms;
   &:hover {
-    background: #159f6d;
-    color: white;
+    background: #117852;
   }
 `
 
