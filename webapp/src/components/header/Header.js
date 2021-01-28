@@ -7,15 +7,13 @@ import divvyLogo from '../../assets/divvy-logo.png'
 
 const Header = ({ location, user }) => {
   return (
-    <header css={headerStyle}>
-      <section css={logoStyle}>
-        <img alt='Divvy Logo' src={divvyLogo} />
-        {location.pathname !== '/' && location.pathname !== '/register'
-          ? <h1>Welcome, {user.firstName} {user.lastName}</h1>
-          : <h1>Divvy Challenge</h1>}
-      </section>
-      {location.pathname !== '/' && location.pathname !== '/register'
-        ? (
+    location.pathname !== '/' && location.pathname !== '/register'
+      ? (
+        <header css={headerStyle}>
+          <section css={logoStyle}>
+            <img alt='Divvy Logo' src={divvyLogo} />
+            <h1>Welcome, {user.firstName} {user.lastName}</h1>
+          </section>
           <nav css={navStyle}>
             <ul>
               <li>
@@ -29,9 +27,11 @@ const Header = ({ location, user }) => {
               </li>
             </ul>
           </nav>
-        )
-        : null}
-    </header>
+        </header>
+      )
+      : (
+        <header />
+      )
   )
 }
 
